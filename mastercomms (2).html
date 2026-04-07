@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG — Master Comms</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131313;--s1:#1b1b1b;--s2:#222;--s3:#2a2a2a;
+  --b1:#282828;--b2:#363636;--b3:#444;
+  --pink:#F17EA9;--pink10:rgba(241,126,169,.1);--pink20:rgba(241,126,169,.2);
+  --txt:#EDEAE4;--txt2:#999;--txt3:#555;
+  --grn:#4EC994;--blu:#5BAAFF;--yel:#F0C040;
+  --org:#FF8F50;--pur:#B084FC;--tea:#3ECFB8;--red:#FF6B6B;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* ── HEADER ── */
+.hdr{background:#0d0d0d;border-bottom:1px solid var(--b1);padding:13px 14px 11px;position:sticky;top:0;z-index:300}
+.hdr-top{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.badge{width:34px;height:34px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;color:#111;flex-shrink:0}
+.hdr-title{font-family:'Syne',sans-serif;font-weight:800;font-size:15px}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--txt3);text-transform:uppercase;margin-top:1px}
+.srch{position:relative}
+.srch input{width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:8px 12px 8px 34px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--txt);outline:none;transition:border-color .2s}
+.srch input:focus{border-color:var(--pink)}
+.srch input::placeholder{color:var(--txt3)}
+.srch-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none;color:var(--txt3)}
+
+/* ── HOW TO USE BANNER ── */
+.how-banner{margin:10px 10px 0;background:var(--s2);border:1px solid var(--b2);border-radius:10px;overflow:hidden}
+.how-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:pointer;user-select:none;gap:8px}
+.how-hd-left{display:flex;align-items:center;gap:8px}
+.how-title{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--yel)}
+.how-sub{font-size:11px;color:var(--txt3);margin-top:1px}
+.how-chev{font-size:10px;color:var(--txt3);transition:transform .2s;flex-shrink:0}
+.how-banner.open .how-chev{transform:rotate(180deg)}
+.how-body{display:none;border-top:1px solid var(--b1);padding:13px}
+.how-banner.open .how-body{display:block}
+.how-steps{display:flex;flex-direction:column;gap:8px}
+.how-step{display:flex;gap:10px;align-items:flex-start}
+.how-n{width:22px;height:22px;border-radius:50%;background:var(--pink10);border:1px solid var(--pink20);color:var(--pink);font-family:'DM Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-text{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.how-text strong{color:var(--txt)}
+.how-rule{margin:10px 0;border:none;border-top:1px solid var(--b1)}
+.how-tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.how-tag-ex{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;border:1px solid}
+
+/* ── TABS ── */
+.tabs-wrap{background:#0d0d0d;border-bottom:1px solid var(--b1);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs-wrap::-webkit-scrollbar{display:none}
+.tabs{display:flex;padding:0 8px;width:max-content;min-width:100%}
+.tab{padding:9px 12px;font-size:12px;font-weight:500;color:var(--txt3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;user-select:none}
+.tab:hover{color:var(--txt2)}
+.tab.active{color:var(--pink);border-bottom-color:var(--pink)}
+
+/* ── CONTENT ── */
+.content{padding-bottom:80px}
+.cat{display:none}.cat.active{display:block}
+
+/* ── CAT HEADER ── */
+.cat-hd{padding:16px 12px 4px;display:flex;align-items:flex-start;gap:10px}
+.cat-ic{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.cat-nm{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;line-height:1.2}
+.cat-ds{font-size:11.5px;color:var(--txt3);margin-top:2px}
+.cat-ct{margin-left:auto;font-family:'DM Mono',monospace;font-size:11px;color:var(--txt3);padding-top:2px;flex-shrink:0}
+
+/* ── CARDS ── */
+.cards{padding:8px 10px 0;display:flex;flex-direction:column;gap:7px}
+.card{background:var(--s1);border:1px solid var(--b1);border-radius:11px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--b2)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;cursor:pointer;gap:8px;user-select:none}
+.card-meta{flex:1;min-width:0}
+.card-title{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;line-height:1.25}
+.card-sit{font-size:11px;color:var(--txt3);margin-top:2px}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.04em;padding:2px 6px;border-radius:4px;border:1px solid}
+.tb{color:var(--blu);border-color:rgba(91,170,255,.22);background:rgba(91,170,255,.07)}
+.tg{color:var(--org);border-color:rgba(255,143,80,.22);background:rgba(255,143,80,.07)}
+.tk{color:var(--yel);border-color:rgba(240,192,64,.22);background:rgba(240,192,64,.07)}
+.tl{color:var(--tea);border-color:rgba(62,207,184,.22);background:rgba(62,207,184,.07)}
+.tp{color:var(--pink);border-color:rgba(241,126,169,.22);background:rgba(241,126,169,.07)}
+.tu{color:var(--pur);border-color:rgba(176,132,252,.22);background:rgba(176,132,252,.07)}
+.tr{color:var(--red);border-color:rgba(255,107,107,.22);background:rgba(255,107,107,.07)}
+.tnew{color:var(--grn);border-color:rgba(78,201,148,.22);background:rgba(78,201,148,.07)}
+.chev{color:var(--txt3);font-size:10px;transition:transform .2s;flex-shrink:0}
+.card.open .chev{transform:rotate(180deg)}
+.card-body{display:none;border-top:1px solid var(--b1);padding:12px 13px}
+.card.open .card-body{display:block}
+.msg{font-size:13.5px;line-height:1.75;color:#c8c4be;white-space:pre-wrap;margin-bottom:10px}
+.cbtn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:var(--pink10);border:1px solid var(--pink20);color:var(--pink);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.04em;padding:8px 12px;border-radius:7px;cursor:pointer;transition:all .2s}
+.cbtn:hover{background:rgba(241,126,169,.17)}
+.cbtn.done{background:rgba(78,201,148,.1);border-color:rgba(78,201,148,.28);color:var(--grn)}
+/* NEW badge on cards */
+.new-pill{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.06em;padding:1px 5px;border-radius:3px;background:rgba(78,201,148,.12);border:1px solid rgba(78,201,148,.25);color:var(--grn);margin-left:6px;vertical-align:middle}
+
+/* ── LINK ROWS (Request Forms) ── */
+.link-list{padding:8px 10px 0;display:flex;flex-direction:column;gap:6px}
+.lrow{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:border-color .2s}
+.lrow:hover{border-color:var(--b2)}
+.lnm{font-family:'Syne',sans-serif;font-weight:600;font-size:13px}
+.lshort{font-family:'DM Mono',monospace;font-size:9px;color:var(--txt3);margin-top:2px}
+.lbtns{display:flex;gap:5px;flex-shrink:0}
+.ibtn{width:32px;height:32px;border-radius:7px;border:1px solid var(--b2);background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s;text-decoration:none;color:var(--txt2)}
+.ibtn:hover{border-color:var(--pink)}
+.ibtn.go{color:var(--blu);border-color:rgba(91,170,255,.22)}
+.ibtn.go:hover{border-color:var(--blu)}
+.ibtn.done{border-color:rgba(78,201,148,.35);color:var(--grn)}
+
+/* ── BOOKLETS ── */
+.bnote{margin:10px 10px 0;background:var(--s2);border:1px solid var(--b2);border-radius:9px;padding:12px}
+.bnote-hd{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--yel);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.bnote p{font-size:12px;color:var(--txt3);line-height:1.6}
+.bnote strong{color:var(--txt2)}
+.blist{padding:8px 10px 0;display:flex;flex-direction:column;gap:6px}
+.brow{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.bnm{font-family:'Syne',sans-serif;font-weight:600;font-size:13px}
+.bfile{font-family:'DM Mono',monospace;font-size:9px;color:var(--txt3);margin-top:2px}
+.bpill{font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border-radius:5px;flex-shrink:0;color:var(--yel);background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.18)}
+
+/* ── MOCK CALL ── */
+.call-steps{padding:8px 10px 0;display:flex;flex-direction:column;gap:7px}
+.step{background:var(--s1);border:1px solid var(--b1);border-radius:11px;overflow:hidden}
+.step-hd{display:flex;align-items:center;gap:9px;padding:11px 13px;cursor:pointer;user-select:none}
+.snum{width:23px;height:23px;border-radius:50%;background:var(--pink10);border:1px solid var(--pink20);color:var(--pink);font-family:'DM Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sem{font-size:15px;flex-shrink:0}
+.stitle{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;flex:1}
+.sbadge{font-family:'DM Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;flex-shrink:0}
+.sa{color:var(--tea);background:rgba(62,207,184,.07);border:1px solid rgba(62,207,184,.2)}
+.sc{color:var(--red);background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.2)}
+.ss{color:var(--pink);background:rgba(241,126,169,.07);border:1px solid rgba(241,126,169,.2)}
+.step.open .chev{transform:rotate(180deg)}
+.step-body{display:none;border-top:1px solid var(--b1);padding:12px}
+.step.open .step-body{display:block}
+.sblk{background:var(--s2);border-radius:8px;padding:10px 12px;margin-bottom:7px}
+.sblk:last-child{margin-bottom:0}
+.slabel{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+.sline{font-size:13px;line-height:1.65;color:#c8c4be}
+.snote{font-size:11px;color:var(--txt3);font-style:italic;margin-top:4px}
+.exlist{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.exrow{display:flex;gap:8px;font-size:12.5px;line-height:1.5;align-items:flex-start}
+.exk{color:var(--blu);font-weight:500;flex-shrink:0;white-space:nowrap}
+.exv{color:var(--txt2)}
+.chklist{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.chki{display:flex;gap:9px;align-items:flex-start;font-size:13px}
+.chkd{width:5px;height:5px;border-radius:50%;background:var(--pink);flex-shrink:0;margin-top:6px}
+.chkm{color:#c8c4be}.chks{font-size:11px;color:var(--txt3);margin-top:1px}
+.closers{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.closer{display:flex;gap:9px;align-items:flex-start;background:var(--s2);border-radius:7px;padding:8px 10px;font-size:13px;color:#c8c4be}
+.cln{width:18px;height:18px;border-radius:50%;background:var(--pink10);border:1px solid var(--pink20);color:var(--pink);font-family:'DM Mono',monospace;font-size:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.scbtn{display:flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--b2);color:var(--txt2);font-family:'DM Mono',monospace;font-size:10px;padding:6px 11px;border-radius:6px;cursor:pointer;transition:all .2s;margin-top:10px}
+.scbtn:hover{border-color:var(--pink);color:var(--pink)}
+.scbtn.done{border-color:rgba(78,201,148,.35);color:var(--grn)}
+
+/* ── SECTION LABEL ── */
+.slbl{margin:14px 12px 0;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3)}
+.sdiv{margin:10px 10px 0;border:none;border-top:1px solid var(--b1)}
+
+/* ── SEARCH ── */
+#sv{display:none;padding:8px 10px 0}
+#sv.on{display:block}
+.sem-empty{text-align:center;padding:50px 20px;color:var(--txt3);font-size:13px}
+.src{background:var(--s1);border:1px solid var(--b1);border-radius:11px;margin-bottom:7px;overflow:hidden}
+.src-hd{padding:11px 13px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.src-from{font-family:'DM Mono',monospace;font-size:10px;color:var(--txt3);margin-top:3px}
+.src-body{padding:0 13px 13px;border-top:1px solid var(--b1)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-top">
+    <div class="badge">GG</div>
+    <div>
+      <div class="hdr-title">GUTTER GHOSTS</div>
+      <div class="hdr-sub">Messaging Reference Guide &nbsp;·&nbsp; Staff Use Only</div>
+    </div>
+  </div>
+  <div class="srch">
+    <span class="srch-ic">🔍</span>
+    <input type="text" id="si" placeholder="Search by title, situation, keyword…" autocomplete="off">
+  </div>
+</div>
+
+<!-- HOW TO USE -->
+<div class="how-banner" id="howBanner">
+  <div class="how-hd" onclick="toggleHow()">
+    <div class="how-hd-left">
+      <span style="font-size:15px">👻</span>
+      <div>
+        <div class="how-title">HOW TO USE THIS TOOL</div>
+        <div class="how-sub">Tap to expand — read before your first shift</div>
+      </div>
+    </div>
+    <span class="how-chev">▼</span>
+  </div>
+  <div class="how-body">
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-n">1</div>
+        <div class="how-text"><strong>Find your situation.</strong> Tap a tab at the top to go to the right category — or use the search bar to find a message by keyword (e.g. "late", "quote", "weather").</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">2</div>
+        <div class="how-text"><strong>Tap the card</strong> to expand it and read the message. Every card has a title and a situation description so you know exactly when to use it.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">3</div>
+        <div class="how-text"><strong>Tap "Copy Message"</strong> — the full text is now in your clipboard. Paste it into Jobber, iMessage, or wherever you're communicating with the client.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">4</div>
+        <div class="how-text"><strong>Fill in the brackets.</strong> Anywhere you see <strong>[INSERT NAME]</strong>, <strong>[INSERT DATE]</strong>, etc. — replace it with the real info before sending.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">5</div>
+        <div class="how-text"><strong>Never freestyle client-facing messages</strong> from scratch. If a situation isn't covered here, ask Josh. The goal is consistent, professional communication on every job.</div>
+      </div>
+    </div>
+    <hr class="how-rule">
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin-bottom:7px">Role tags explained</div>
+    <div class="how-tags-row">
+      <span class="how-tag-ex" style="color:var(--org);border-color:rgba(255,143,80,.3);background:rgba(255,143,80,.07)">👤 Groundsmen — Field crew use</span>
+      <span class="how-tag-ex" style="color:var(--blu);border-color:rgba(91,170,255,.3);background:rgba(91,170,255,.07)">👤 Backend — Sarah or Josh</span>
+      <span class="how-tag-ex" style="color:var(--yel);border-color:rgba(240,192,64,.3);background:rgba(240,192,64,.07)">📎 Attach this file when sending</span>
+      <span class="how-tag-ex" style="color:var(--grn);border-color:rgba(78,201,148,.3);background:rgba(78,201,148,.07)">✦ NEW — Recently added message</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs" id="tabsRow">
+    <div class="tab active" data-cat="lead">📋 Lead Intake</div>
+    <div class="tab" data-cat="quote">📤 Quote Follow-Up</div>
+    <div class="tab" data-cat="booking">✅ Booking</div>
+    <div class="tab" data-cat="dispatch">🚗 Day-Of Logistics</div>
+    <div class="tab" data-cat="fillin">📍 Fill-In Leads</div>
+    <div class="tab" data-cat="onsite">🔧 On-Site</div>
+    <div class="tab" data-cat="weather">🌧️ Weather</div>
+    <div class="tab" data-cat="postjob">📸 Post-Job</div>
+    <div class="tab" data-cat="upsell">💰 Upsell</div>
+    <div class="tab" data-cat="faqs">❓ FAQs</div>
+    <div class="tab" data-cat="forms">🗒️ Request Forms</div>
+    <div class="tab" data-cat="booklets">📎 Booklets</div>
+    <div class="tab" data-cat="mockcall">🧙🏻‍♂️ Mock Call</div>
+  </div>
+</div>
+
+<div class="content" id="mc">
+
+<!-- ════════════════════════════════════════
+     LEAD INTAKE
+════════════════════════════════════════ -->
+<div class="cat active" id="cat-lead">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(241,126,169,.1)">📋</div>
+    <div><div class="cat-nm">Lead Intake</div><div class="cat-ds">First responses to inbound inquiries, form routing, and lead info collection.</div></div>
+    <div class="cat-ct">12</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Sent Request Link / Form Completed</div><div class="card-sit">Client completed the Jobber request form</div><div class="card-tags"><span class="tag tb">👤 Backend</span><span class="tag tk">📎 Service booklets</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello, it's Josh from GUTTER GHOSTS.
+
+Thank you for completing the service request form.
+
+Sarah, our quoting specialist, will send your quote by email and text as soon as possible.
+
+In the meantime, please reference the service booklets attached below.
+
+If you have any questions, please reach out using the number or email listed below and we will be happy to assist you.
+
+GUTTER GHOSTS
+Josh (CEO)
+647-871-0294
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Request Link Sent / Form Status Pending</div><div class="card-sit">Request link sent, awaiting client completion</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Service booklets</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello, it's [INSERT NAME] from GUTTER GHOSTS.
+
+I'm the crew member assigned to serve you once the form is submitted and the quote is approved.
+
+In the meantime, please reference the service booklets attached below.
+
+GUTTER GHOSTS
+[INSERT NAME]
+[INSERT NUMBER]
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Identify Service Before Sending Form</div><div class="card-sit">Client inquires but service is unclear</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Relevant service booklet(s)</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Thank you for your inquiry.
+
+Which service would you like to receive a quote for?
+
+1. Gutter Cleaning
+2. Exterior Window Cleaning
+3. Gutter + Window Cleaning Bundle
+4. Gutter Guards
+5. Downspout Services
+6. Gutter Inspections
+7. Holiday Lighting
+
+Once you select your service, I will send the correct request form for you to complete so we can prepare your quote.
+
+GUTTER GHOSTS
+[INSERT NAME]
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">New Inquiry / No Lead Info Provided</div><div class="card-sit">Client reaches out by text with limited information</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Service booklets</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Thank you for your inquiry into our services.
+
+To provide you with the most accurate quote possible, please send the following:
+
+- Name
+- Email
+- Phone Number
+- Home Address
+- Service Requested
+
+Once we receive this information, your quote will be sent by email and text message.
+
+In the meantime, I'll send over our service booklets for your reference.
+
+We're here to answer any questions you may have.
+
+GUTTER GHOSTS
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">New Inquiry / Multi-Choice Conversation Starter</div><div class="card-sit">Friendly first reply to an inbound lead</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Thank you for your inquiry.
+
+How can I best help you today?
+
+1. Tell me which services GUTTER GHOSTS offers
+2. Provide me with a quote for the service I need
+3. Tell me about bundling services to save more
+4. Tell me a joke first, then we can talk</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Direct Jobber Link Flow — Part 1 & 2</div><div class="card-sit">Two-part conversation leading client to request form</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Service booklets (after Part 2)</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">PART 1:
+Hello, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Thank you for your inquiry.
+
+How can I best help you today?
+
+---
+
+PART 2:
+Absolutely — we can have your quote sent over very quickly.
+
+Please click the link below and complete the short 60-second service form:
+
+[INSERT JOBBER REQUEST LINK]
+
+Once the form is complete, you will receive a quote for the selected service.
+
+In the meantime, I've attached our service booklets for your reference.
+
+GUTTER GHOSTS
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Quote Being Prepared / Short Delay</div><div class="card-sit">Information received, quote not yet sent</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Your quote is currently being prepared. You will receive a notification by email and text once it has been sent, along with additional service information.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Quote Being Prepared / Sarah Notified</div><div class="card-sit">Confirming the quote request is in motion</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Thank you for providing that information. Our quoting specialist, Sarah, has been notified. Please expect your quote shortly by email and text.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Quote Delay / High Volume</div><div class="card-sit">Longer delay due to peak season</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Just a quick heads up — your quote may take a little longer than usual due to the high volume of requests we receive this time of year. Thank you in advance for your patience.
+
+Your quote will be sent by email and text.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Quote Delay / Follow Up if Not Received</div><div class="card-sit">Client waiting too long, nudge to notify us</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Please let me know if you do not receive your quote within the next hour. Our quoting specialist, Sarah, is handling a high volume of requests this time of year.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Outside Service Area <span class="new-pill">NEW</span></div><div class="card-sit">Client is located outside Durham Region / GTA coverage</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, thank you for reaching out to GUTTER GHOSTS.
+
+Unfortunately, your property falls outside of our current service area. We primarily service Durham Region and the surrounding GTA.
+
+We hope you find a great provider, and if your situation ever changes, we'd love to help.
+
+GUTTER GHOSTS
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Inbound Call — Info Collected, Next Steps <span class="new-pill">NEW</span></div><div class="card-sit">After a phone call — sending recap and booklets by text</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Service booklets</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME], it's [INSERT NAME] from GUTTER GHOSTS — great speaking with you just now.
+
+As promised, I've attached our service booklets below for your reference.
+
+Sarah will have your quote sent shortly by email and text. Leave it with us — we'll take care of everything from here.
+
+GUTTER GHOSTS
+647-871-0294
+gutterghoststeam@gmail.com</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     QUOTE FOLLOW-UP
+════════════════════════════════════════ -->
+<div class="cat" id="cat-quote">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(91,170,255,.1)">📤</div>
+    <div><div class="cat-nm">Quote Follow-Up</div><div class="cat-ds">Nudges, soft pushes, hard closes, and last-attempt messages to convert approved quotes.</div></div>
+    <div class="cat-ct">9</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Confirm Quote Was Received</div><div class="card-sit">Nudge after quote was sent — Day 1</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, just checking in to see if you received the quote from Sarah, our quoting specialist. At times, delivery can take a little longer due to the high volume of requests we receive.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Soft Approval Push</div><div class="card-sit">Quote sent — technician introduces self, Day 1–2</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, it's [INSERT NAME] from GUTTER GHOSTS.
+
+I'll be one of the technicians assigned to serve you once the quote is approved.
+
+I'm confident we will exceed your expectations. Please do not hesitate to reach out if you have any questions before moving forward.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Hard Approval Push</div><div class="card-sit">Encourage approval or surface objections — Day 2–3</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, it's [INSERT NAME] from GUTTER GHOSTS.
+
+I'll be the technician assigned to serve you.
+
+Sarah sent your quote, which should have been delivered by email and text.
+
+If you would like to go ahead with booking, simply reply APPROVED and leave the rest to us.
+
+If you are unsure, let me know what is making you hesitate and I'll do my best to help.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">No Response After X Days</div><div class="card-sit">Quote sent, no reply after several days</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Sarah sent your quote [INSERT NUMBER OF DAYS] days ago, so I just wanted to check in.
+
+I'm the technician assigned to serve you, and I'd love to help get this task crossed off your list.
+
+If you'd like to move forward, I can help arrange the nearest available service date now.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Owner Follow-Up</div><div class="card-sit">CEO stepping in for stronger push</div><div class="card-tags"><span class="tag tb">👤 Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, Josh here from GUTTER GHOSTS.
+
+As the owner, it's my responsibility to ensure your customer service experience is exceptional.
+
+We currently have a crew available on [INSERT DATE/TIME] and I can assign them to your service while they are nearby.
+
+We're ready to serve you.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Dead Quote / Multi-Option Re-Engagement</div><div class="card-sit">Quote ignored, declined, or stalled</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi there, it's [INSERT NAME] from GUTTER GHOSTS.
+
+Our quoting specialist, Sarah, let me know your quote has not yet been approved.
+
+My goal is to help get the service completed for you. What can I do to help move this forward?
+
+1. Speak with Sarah to see whether the quote can be adjusted
+2. See whether bundling another service could reduce the price
+3. Go ahead and book the service now
+
+We're here to serve you and always do our best to make things work for our clients.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Friendly Nearby Prompt</div><div class="card-sit">Client has not approved — technician is near property</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+I'm not sure of the current status of your quote, but I wanted to let you know I'll be in your area [TODAY / TOMORROW] and may be able to complete the service while I'm nearby.
+
+No pressure at all — just thought I'd reach out.
+
+GUTTER GHOSTS
+[INSERT NAME]
+[INSERT EMAIL]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Discount Push While Nearby</div><div class="card-sit">Reduced rate offered due to proximity / open slot</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Good [morning / afternoon / evening], [INSERT CLIENT NAME].
+
+It's [INSERT NAME] from GUTTER GHOSTS.
+
+I spoke with our quoting specialist and mentioned I'll be near your area this [INSERT DAY] with availability at [INSERT TIME].
+
+Because of that, we can reduce your quote from [INSERT ORIGINAL PRICE] to [INSERT NEW PRICE].
+
+No pressure whatsoever — I just wanted to let you know since I'm nearby and available.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Last Attempt</div><div class="card-sit">Final quote push before closing lead</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+It's [INSERT NAME] from GUTTER GHOSTS.
+
+I'll keep this brief — I have one remaining opening on [INSERT DATE] at [INSERT TIME] and can complete your service then if that works for you.
+
+No pressure at all. Availability is tight, and I know this is a service that needs attention.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     BOOKING
+════════════════════════════════════════ -->
+<div class="cat" id="cat-booking">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(78,201,148,.1)">✅</div>
+    <div><div class="cat-nm">Booking</div><div class="cat-ds">Night-before and day-of messages to confirmed clients.</div></div>
+    <div class="cat-ct">4</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Night-Before Service Reminder <span class="new-pill">NEW</span></div><div class="card-sit">Sent the evening before a confirmed booking</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+It's [INSERT NAME] from GUTTER GHOSTS — just a quick reminder that your [INSERT SERVICE] is booked for tomorrow.
+
+Arrival window: [INSERT TIME WINDOW]
+
+You do not need to be home. We'll send you an update when we're on our way and again when the job is complete.
+
+See you tomorrow.
+
+GUTTER GHOSTS</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Booking Confirmation / Client Present</div><div class="card-sit">Day-of confirmation — client will be home</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+It's [INSERT NAME] from GUTTER GHOSTS.
+
+I'll be one of the technicians assigned to serve you today.
+
+Looking forward to providing you with exceptional service.
+
+See you shortly.
+
+GUTTER GHOSTS</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Booking Confirmation / Client Not Home</div><div class="card-sit">Day-of message — client does not need to be present</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+It's [INSERT NAME] from GUTTER GHOSTS.
+
+I'll keep you in the loop from arrival through to job completion.
+
+Looking forward to serving you today.
+
+GUTTER GHOSTS</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Client Requests Reschedule <span class="new-pill">NEW</span></div><div class="card-sit">Confirmed booking — client needs to change date</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME], no problem at all — we'll get you moved.
+
+Please reply with a few dates and times that work for you and Sarah will confirm your updated booking as soon as possible.
+
+GUTTER GHOSTS
+647-871-0294</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAY-OF LOGISTICS
+════════════════════════════════════════ -->
+<div class="cat" id="cat-dispatch">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(255,143,80,.1)">🚗</div>
+    <div><div class="cat-nm">Day-Of Logistics</div><div class="cat-ds">Running late, early arrival, ETA, and en-route messages.</div></div>
+    <div class="cat-ct">6</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Running Late / Client Home</div><div class="card-sit">Crew delayed — client is present</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+I'm running a little behind for today's service, as my previous job took longer than expected.
+
+My updated estimated arrival time is [INSERT ETA].
+
+Thank you in advance for your patience and understanding.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Running Late / Client Not Home</div><div class="card-sit">Crew delayed — client is not present</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+Just keeping you in the loop — I'll be arriving closer to [INSERT TIME] instead of the original arrival time.
+
+I'll send your service documentation and results once the work is complete.
+
+Thank you for your patience. I'll be there soon.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Early Arrival Request</div><div class="card-sit">Crew can arrive earlier than scheduled</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+I'm running earlier than expected for today's service.
+
+Would it be alright if I arrived at [INSERT TIME] instead of the originally scheduled arrival time?
+
+Thank you in advance. I look forward to serving you.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Nearby / Can Start Earlier</div><div class="card-sit">Crew is close by and wants to begin early</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+I'm just wrapping up a job nearby and am only [INSERT TRAVEL TIME] away from your property.
+
+Would it be alright if I came by now and started the service earlier than expected?
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">On Our Way / ETA</div><div class="card-sit">Sending ETA when no Jobber automation is used</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+It's [INSERT NAME] from GUTTER GHOSTS.
+
+I'm on route to your property. My estimated arrival time is:
+
+[INSERT TIME]
+
+See you soon.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">On Our Way / Booking Time Confirmed</div><div class="card-sit">Confirming scheduled arrival window</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, [INSERT NAME] from GUTTER GHOSTS here.
+
+Just confirming my arrival time as listed in your service booking.
+
+I'll keep you posted throughout the service until completion.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FILL-IN LEADS
+════════════════════════════════════════ -->
+<div class="cat" id="cat-fillin">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(176,132,252,.1)">📍</div>
+    <div><div class="cat-nm">Fill-In Leads</div><div class="cat-ds">Same-day area outreach, discount offers, and pulling forward scheduled services.</div></div>
+    <div class="cat-ct">3</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">We're in Your Area Today</div><div class="card-sit">Pending quote — same-day fill-in attempt</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hey [INSERT CLIENT NAME],
+
+I'm not sure of the current status of your quote, but I wanted to let you know I'll be in your area [INSERT AREA / STREET / DETAILS] and may be able to complete the service while I'm nearby.
+
+You do not need to be home. I'll keep you updated from arrival to departure and will send your service results afterward.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">We're in Your Area / Discount Offer</div><div class="card-sit">Nearby opening with discount incentive</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+I'm not sure of the status of your quote, however I recently spoke with our CEO and was told I could offer an additional [INSERT AMOUNT] off your previous quote, as we'll be only a couple of blocks away completing work today.
+
+No pressure at all — I just wanted to let you know since I'll be nearby.
+
+Have a great day, and hopefully I hear from you soon.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Approved Lead / Pull Service Forward</div><div class="card-sit">Already booked — technician wants to complete today</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hello [INSERT CLIENT NAME],
+
+I'm the technician assigned to your [INSERT SERVICE].
+
+I know your service is not booked for today, but I'm nearby and have availability to complete it today if that works for you.
+
+I know this is last minute, and no worries at all if you would prefer to keep your assigned service date.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     ON-SITE
+════════════════════════════════════════ -->
+<div class="cat" id="cat-onsite">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(240,192,64,.1)">🔧</div>
+    <div><div class="cat-nm">On-Site</div><div class="cat-ds">Scope changes, access issues, safety holds, and job-blocking situations.</div></div>
+    <div class="cat-ct">5</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Scope Change Discovered On Site</div><div class="card-sit">Scope increased from original quote</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+I noticed that [INSERT SCOPE / ISSUE] was not included in your original service request.
+
+Per our process, this would require an additional [INSERT AMOUNT], as it involves added time, labour, or materials.
+
+If you would prefer to leave it for now, we can continue with the originally quoted service and leave [INSERT SCOPE / ISSUE] as is.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Exterior Water Not Available</div><div class="card-sit">Window cleaning delayed — no water access</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hey [INSERT CLIENT NAME],
+
+As mentioned previously, we require exterior water access to be turned on before arrival in order to complete today's service successfully.
+
+Unfortunately, today's service must be delayed. A member of our team will follow up with next steps.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Cannot Complete Today / Scope Mismatch</div><div class="card-sit">Scope differs from what was originally outlined</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, upon arrival we found that the scope of work differs from what was originally outlined, and we're unable to complete the service properly today.
+
+We will need to reschedule once the updated scope has been reviewed and confirmed.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Cannot Complete Today / Safety Concern</div><div class="card-sit">Roof, gutter, or access conditions unsafe</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, after assessing the property, we identified safety concerns with the current roof, gutter, or access conditions that prevent us from completing the job safely today.
+
+We will need to reschedule once we review the safest way to proceed.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Cannot Complete Today / Property Not Ready</div><div class="card-sit">Access, utilities, or site readiness issue</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, we're unable to complete the service today because the property is not fully ready for the work, as required access or utilities are not currently available.
+
+We will need to reschedule for a time when everything is accessible and ready to go.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     WEATHER
+════════════════════════════════════════ -->
+<div class="cat" id="cat-weather">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(91,170,255,.1)">🌧️</div>
+    <div><div class="cat-nm">Weather</div><div class="cat-ds">Rain, wind, snow, and extreme heat — delay and reschedule communication.</div></div>
+    <div class="cat-ct">2</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Weather Delay / General</div><div class="card-sit">Rain, wind, snow, or unsafe conditions</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, due to today's weather conditions, we're unable to complete your service safely and successfully.
+
+We will need to reschedule your booking. Please leave it with us, and we will follow up as soon as our next available service date is confirmed.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Weather Delay / Extreme Heat</div><div class="card-sit">Extreme heat prevents safe execution</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, due to extreme heat conditions, we're unable to complete your service safely and properly today.
+
+We will need to reschedule your booking. Please leave it with us, and we will follow up with your next available service date and booking confirmation.
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     POST-JOB
+════════════════════════════════════════ -->
+<div class="cat" id="cat-postjob">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(78,201,148,.1)">📸</div>
+    <div><div class="cat-nm">Post-Job</div><div class="cat-ds">Job complete messages, photo sends, review requests, payment follow-ups, and referral asks.</div></div>
+    <div class="cat-ct">6</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Job Complete / Send Checklist + Photos</div><div class="card-sit">Standard completion message — send after every single job</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span><span class="tag tk">📎 Job checklist + before/after photos</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, your service has been completed.
+
+I've attached the following:
+
+- Your job review checklist, showing what was completed today and any service recommendations
+- Before-and-after results of the service
+
+In regard to your invoice, our quoting specialist will send that later this evening by email.
+
+Thank you for trusting GUTTER GHOSTS with your service.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Google Review Request <span class="new-pill">NEW</span></div><div class="card-sit">Send same day or day after job completion</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME], it's [INSERT NAME] from GUTTER GHOSTS — thank you again for trusting us with your service today.
+
+If you're happy with the results, a quick Google review would mean the world to us. It's how we grow and continue serving homeowners across the region.
+
+Takes less than a minute 👇
+[INSERT GOOGLE REVIEW LINK]
+
+We truly appreciate it. 🙏</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Invoice Follow-Up / Payment Reminder <span class="new-pill">NEW</span></div><div class="card-sit">Invoice unpaid 24–48 hours after service</div><div class="card-tags"><span class="tag tb">👤 Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME], just a friendly follow-up from GUTTER GHOSTS.
+
+Your invoice for [INSERT SERVICE] completed on [INSERT DATE] is still outstanding.
+
+You can pay directly through the invoice link sent by Sarah — by credit card or e-transfer.
+
+If you have any questions or didn't receive the invoice, please let us know and we'll resend it right away.
+
+Thank you!
+GUTTER GHOSTS
+647-871-0294</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Client Complaint / Concern After Service <span class="new-pill">NEW</span></div><div class="card-sit">Client reports an issue or is unhappy with results</div><div class="card-tags"><span class="tag tb">👤 Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME], thank you for letting us know — and I'm sorry to hear about your experience.
+
+This is not the standard we hold ourselves to, and I want to make it right.
+
+Could you please send photos or a description of the concern? I'll review it personally and follow up with next steps as soon as possible.
+
+Josh Chapman
+GUTTER GHOSTS
+647-871-0294</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Referral Ask</div><div class="card-sit">Post-job referral request — ideally sent with review ask</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Referral link if applicable</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">It was a pleasure serving you today.
+
+If you know any friends, family, or neighbours who may need our services, please feel free to send them our way.
+
+We'll take great care of them, and if they move forward with us, we'll be sure to remember you on your next service.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Seasonal Follow-Up / Spring to Fall</div><div class="card-sit">Reach back to spring gutter clients for fall booking</div><div class="card-tags"><span class="tag tg">👤 Backend / Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, it's [INSERT NAME] from GUTTER GHOSTS.
+
+We completed your gutter service in the spring, and I wanted to let you know that fall spots are filling up quickly.
+
+If you'd like to secure service within the next month, please text me back as soon as possible and I'll make sure we get you booked in.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     UPSELL
+════════════════════════════════════════ -->
+<div class="cat" id="cat-upsell">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(176,132,252,.1)">💰</div>
+    <div><div class="cat-nm">Upsell</div><div class="cat-ds">On-site upsell notices, bundle pitches, and add-on outreach.</div></div>
+    <div class="cat-ct">3</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Upsell Identified On Site</div><div class="card-sit">Additional issue noticed during service — flag it now</div><div class="card-tags"><span class="tag tg">👤 Groundsmen</span><span class="tag tk">📎 Photos in service review</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, while on site today I noticed [INSERT ISSUE].
+
+I'll include photos and recommendations in my service review once the job is complete. If you'd like, I can pass it along to our team for follow-up.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Bundle Offer — Add a Second Service <span class="new-pill">NEW</span></div><div class="card-sit">Client booked one service — pitch a second while crew is on-site</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi [INSERT CLIENT NAME],
+
+Since we're already at your property today for [INSERT SERVICE], we could also take care of [INSERT SECOND SERVICE] while we're here — no extra trip needed.
+
+Bundling saves you time and we can usually offer a better rate than booking separately.
+
+Would you like me to pass that along to Sarah for a quick add-on quote?
+
+GUTTER GHOSTS
+[INSERT NAME]</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Seasonal Follow-Up / Spring to Fall</div><div class="card-sit">Reach back to spring gutter clients for fall booking</div><div class="card-tags"><span class="tag tg">👤 Backend / Groundsmen</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, it's [INSERT NAME] from GUTTER GHOSTS.
+
+We completed your gutter service in the spring, and I wanted to let you know that fall spots are filling up quickly.
+
+If you'd like to secure service within the next month, please text me back as soon as possible and I'll make sure we get you booked in.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FAQs
+════════════════════════════════════════ -->
+<div class="cat" id="cat-faqs">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(62,207,184,.1)">❓</div>
+    <div><div class="cat-nm">FAQs</div><div class="cat-ds">Ready answers for the most common client questions — copy and send as-is.</div></div>
+    <div class="cat-ct">10</div>
+  </div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">What's Included in the Service?</div><div class="card-sit">Client asks what is included</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Relevant service booklet</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Hi, I've attached our service booklet below for the requested service.
+
+It outlines what's included, who we are, what sets us apart, and what you can expect from the region's highest-rated and most trusted service.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">How Long Does It Take?</div><div class="card-sit">Client asks about service duration</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">It depends, as every job is different.
+
+Timing can vary based on the current condition of the system, overall difficulty, and property access, but most services take anywhere from 1 hour to a few hours.
+
+We'll notify you once the job is complete and send your service results afterward.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Do I Need to Be Home?</div><div class="card-sit">Client asks if presence is required</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">No, you do not need to be home for service.
+
+Our system is designed to keep you fully informed from arrival to completion. You'll receive updates, service notes, photo results, and a final message once the job is finished.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">How Do I Pay?</div><div class="card-sit">Client asks about payment methods</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Invoice sent after service</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">We accept credit card and e-transfer.
+
+Your invoice will be sent after service completion, typically later in the evening, by email and text with payment instructions.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Are You Insured? <span class="new-pill">NEW</span></div><div class="card-sit">Client asks about insurance or liability coverage</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Yes — GUTTER GHOSTS is fully insured.
+
+Our crew is trained at heights and we carry liability coverage on every job. If you require a certificate of insurance, please let us know and we will arrange that for you.
+
+GUTTER GHOSTS
+647-871-0294</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Do You Offer a Guarantee? — Gutter Cleaning</div><div class="card-sit">Client asks about cleaning warranty</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">No ongoing guarantee or warranty applies to gutter cleaning.
+
+Once completed, we provide checklist verification and before-and-after documentation showing the quoted work was completed.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Do You Offer a Warranty? — Downspout Installations</div><div class="card-sit">Client asks about workmanship warranty</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Yes. Downspout installations include a 60-day workmanship warranty covering installation-related issues only.
+
+This does not cover clogs, blockages, or weather-related damage.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Do You Offer a Warranty? — Gutter Guards</div><div class="card-sit">Client asks about gutter guard warranty</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span><span class="tag tk">📎 Gutter guard booklet / package</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Gutter guard warranty details are outlined in the package provided.
+
+Any applicable product-related warranty must be handled through the manufacturer or supplier. Debris buildup after installation is not covered.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">Do You Cover Leak Concerns?</div><div class="card-sit">Client asks about leak-related follow-up</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">Yes. Leak-related service concerns are covered for 14 days after completion.
+
+Please send photos or video of the issue so our team can review it.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd" onclick="T(this)"><div class="card-meta"><div class="card-title">What Is a Complimentary Rapid Gutter Cleaning?</div><div class="card-sit">Client asks how rapid clean works and when to use it</div><div class="card-tags"><span class="tag tg">👤 Groundsmen / Backend</span></div></div><span class="chev">▼</span></div>
+      <div class="card-body"><div class="msg">A complimentary rapid gutter cleaning is a quick maintenance service of up to 30 minutes intended for light upkeep only.
+
+To redeem it, you must notify GUTTER GHOSTS before October 1 and provide proof that it was included with your service.
+
+After October 1, it can no longer be redeemed.</div><button class="cbtn" onclick="C(this)">📋 Copy Message</button></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     REQUEST FORMS
+════════════════════════════════════════ -->
+<div class="cat" id="cat-forms">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(62,207,184,.1)">🗒️</div>
+    <div><div class="cat-nm">Service Request Forms</div><div class="cat-ds">Jobber request links — 📋 copies the URL, ↗ opens the form directly.</div></div>
+    <div class="cat-ct">8</div>
+  </div>
+  <div class="link-list">
+    <div class="lrow"><div><div class="lnm">🐳 Downspout</div><div class="lshort">…/requests/2274740/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274740/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274740/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🍁 Gutter Clean</div><div class="lshort">…/requests/2274285/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274285/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274285/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🛡️ Gutter Guard</div><div class="lshort">…/requests/2274457/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274457/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274457/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🍁🛡️ Gutter Clean & Guard</div><div class="lshort">…/requests/2499148/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499148/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499148/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🍁🔫 Gutter & Window Clean</div><div class="lshort">…/requests/2487672/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2487672/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2487672/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🔫 Window Clean</div><div class="lshort">…/requests/2274650/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274650/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274650/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">🎅🏻 Holiday Lights</div><div class="lshort">…/requests/2274838/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274838/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274838/new" target="_blank">↗</a></div></div>
+    <div class="lrow"><div><div class="lnm">📝 System Inspection</div><div class="lshort">…/requests/2499196/new</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499196/new')">📋</button><a class="ibtn go" href="https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499196/new" target="_blank">↗</a></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     BOOKLETS
+════════════════════════════════════════ -->
+<div class="cat" id="cat-booklets">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(240,192,64,.1)">📎</div>
+    <div><div class="cat-nm">Service Booklets</div><div class="cat-ds">All booklets live in Google Drive — open folder, then share individual PDFs with clients.</div></div>
+    <div class="cat-ct">5</div>
+  </div>
+  <div class="link-list" style="margin-top:10px">
+    <div class="lrow"><div><div class="lnm">📂 All Booklets — Google Drive Folder</div><div class="lshort">drive.google.com / GG Service Booklets</div></div><div class="lbtns"><button class="ibtn" onclick="CL(this,'https://drive.google.com/drive/folders/1Vnre1lT_66oL0VfGvGHjzVuC_YABVOqy?usp=sharing')">📋</button><a class="ibtn go" href="https://drive.google.com/drive/folders/1Vnre1lT_66oL0VfGvGHjzVuC_YABVOqy?usp=sharing" target="_blank">↗</a></div></div>
+  </div>
+  <div class="bnote" style="margin-top:10px">
+    <div class="bnote-hd">📋 How to share a booklet with a client</div>
+    <p>1. Tap ↗ above to open the Drive folder.<br>2. Long-press or right-click the PDF you need.<br>3. Tap <strong>Share → Anyone with the link → Copy link</strong>.<br>4. Paste that link into your message to the client.<br><br>Once Josh adds individual PDF links here, each booklet will have its own one-tap copy button.</p>
+  </div>
+  <div class="blist">
+    <div class="brow"><div><div class="bnm">🍁 Gutter Cleaning</div><div class="bfile">Gutter_Clean_SB.pdf</div></div><div class="bpill">In Drive</div></div>
+    <div class="brow"><div><div class="bnm">🛡️ Gutter Guards</div><div class="bfile">Pricing_Guards.pdf</div></div><div class="bpill">In Drive</div></div>
+    <div class="brow"><div><div class="bnm">🐳 Downspouts</div><div class="bfile">Downspouts_SB.pdf</div></div><div class="bpill">In Drive</div></div>
+    <div class="brow"><div><div class="bnm">🔫 Window Cleaning</div><div class="bfile">Window_Clean_SB.pdf</div></div><div class="bpill">In Drive</div></div>
+    <div class="brow"><div><div class="bnm">🎅🏻 Holiday Lighting</div><div class="bfile">Holiday_Services_SB.pdf</div></div><div class="bpill">In Drive</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MOCK CALL
+════════════════════════════════════════ -->
+<div class="cat" id="cat-mockcall">
+  <div class="cat-hd">
+    <div class="cat-ic" style="background:rgba(241,126,169,.1)">🧙🏻‍♂️</div>
+    <div><div class="cat-nm">Mock Call Simulation</div><div class="cat-ds">Step-by-step inbound call flow — greeting to close. Tap each step to expand.</div></div>
+    <div class="cat-ct">7 steps</div>
+  </div>
+  <div class="call-steps">
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">1</div><div class="sem">👻</div><div class="stitle">Answer the Call</div><span class="sbadge ss">SCRIPT</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 You say</div><div class="sline">"GUTTER GHOSTS, _________ speaking — how can I help you today?"</div><div class="snote">Fill in your name. Warm, confident, direct. Let them speak first.</div></div>
+        <button class="scbtn" onclick="CS(this,'GUTTER GHOSTS, _________ speaking — how can I help you today?')">📋 Copy Script</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">2</div><div class="sem">👨🏻</div><div class="stitle">Listen & Acknowledge</div><span class="sbadge sa">RESPOND</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <p style="font-size:11.5px;color:var(--txt3);margin-bottom:9px">Three common client openings — acknowledge, assure, redirect:</p>
+        <div class="sblk"><div class="slabel">If they ask if you offer a service</div><div class="sline">"Absolutely — that's one of our core services. You've called the right place. Let me grab a few details and we'll get your quote started right away."</div></div>
+        <div class="sblk"><div class="slabel">If they ask for a quote</div><div class="sline">"Perfect — we handle [service] all the time across Durham Region. I'll take down your info and have our quoting specialist Sarah get that sent over to you today."</div></div>
+        <div class="sblk"><div class="slabel">If they describe a problem</div><div class="sline">"That's something we deal with regularly — no worries at all. We'll get one of our crew out to sort it. Let me grab your details and we'll take care of it from here."</div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">3</div><div class="sem">👻</div><div class="stitle">Ask How They Heard About Us</div><span class="sbadge sa">LEAD SOURCE</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 You say</div><div class="sline">"Quick one — how did you hear about us?"</div><div class="snote">Record in Jobber → client record → Lead Source field immediately after the call.</div></div>
+        <div class="exlist">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px">Build-off responses by source</div>
+          <div class="exrow"><span class="exk">Google →</span><span class="exv">"You must have read some of our reviews — 4.9 stars, 155+ five-stars. You're in great hands!"</span></div>
+          <div class="exrow"><span class="exk">Referral →</span><span class="exv">"Who told you about us? Love hearing that — we'll make sure you get the same experience."</span></div>
+          <div class="exrow"><span class="exk">Neighbour →</span><span class="exv">"We're always in the area — glad you caught us! Looks like your neighbours have good taste."</span></div>
+          <div class="exrow"><span class="exk">Social →</span><span class="exv">"Great — we put a lot into showing the real process. Happy it connected!"</span></div>
+          <div class="exrow"><span class="exk">Door hanger →</span><span class="exv">"Perfect timing — we were just in your neighbourhood. You're already on our radar!"</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">4</div><div class="sem">👻</div><div class="stitle">Tell Them About the Service</div><span class="sbadge ss">SELL</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 Your floor — don't rush this part</div><div class="sline">"So here's how we work — we're not your average crew. Every job comes with real-time updates, before-and-after documentation, and you'll know exactly who's showing up before they arrive. We do [service] all across Durham Region and we're the highest-rated service in the area for a reason."</div></div>
+        <div class="sblk"><div class="slabel">Then add</div><div class="sline">"I'll send our service booklet by text — it walks through everything start to finish. No surprises, no hidden fees."</div></div>
+        <button class="scbtn" onclick="CS(this,`So here's how we work — we're not your average crew. Every job comes with real-time updates, before-and-after documentation, and you'll know exactly who's showing up before they arrive. We do [service] all across Durham Region and we're the highest-rated service in the area for a reason.\n\nI'll send our service booklet by text — it walks through everything start to finish. No surprises, no hidden fees.`)">📋 Copy Script</button>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">5</div><div class="sem">👻</div><div class="stitle">Address the Service Request</div><span class="sbadge sa">QUALIFY</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 You say</div><div class="sline">"To make sure we quote you accurately — just a couple of quick questions about the property."</div></div>
+        <div class="chklist">
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Gutter Clean</div><div class="chks">How many storeys? Heavy tree coverage? Last time cleaned?</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Window Clean</div><div class="chks">Approx. number of windows? Any hard-to-reach areas or skylights?</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Gutter Guard</div><div class="chks">Same as clean + any existing guards to remove?</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Downspout</div><div class="chks">Where's the issue? Detached, crushed, missing, or needs extension?</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Holiday Lights</div><div class="chks">Which areas? Roofline, windows, trees? Colour preferences?</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">System Inspection</div><div class="chks">Any known issues? Pre-winter or post-storm check?</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">6</div><div class="sem">👻</div><div class="stitle">Collect Contact & Property Details</div><span class="sbadge sc">CRITICAL</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 You say</div><div class="sline">"Perfect — let me grab your info so Sarah can get that quote built and sent over."</div></div>
+        <div class="chklist" style="margin-top:8px">
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Full Name</div><div class="chks">First and last</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Email Address</div><div class="chks">Confirm spelling — quote is sent here</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Phone Number</div><div class="chks">Ask: "Is that a cell or home phone?" — texts only deliver to cell numbers</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">Property Address</div><div class="chks">Full civic address</div></div></div>
+          <div class="chki"><div class="chkd"></div><div><div class="chkm">City</div><div class="chks">Confirm — needed for routing and service area verification</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-hd" onclick="TS(this)"><div class="snum">7</div><div class="sem">👻</div><div class="stitle">Close the Call</div><span class="sbadge ss">CLOSE</span><span class="chev">▼</span></div>
+      <div class="step-body">
+        <div class="sblk"><div class="slabel">👻 You say</div><div class="sline">"Perfect — I'll send the service booklet to you by text right now. Sarah, our quoting specialist, will have your quote sent over shortly. Leave it with me — I'll take care of it."</div></div>
+        <div class="closers">
+          <div class="closer"><div class="cln">1</div><span>"I'll send our service booklets to you by text right now."</span></div>
+          <div class="closer"><div class="cln">2</div><span>"Our quoting specialist Sarah will have your quote sent shortly."</span></div>
+          <div class="closer"><div class="cln">3</div><span>"Leave it with me — I'll take care of it."</span></div>
+        </div>
+        <button class="scbtn" onclick="CS(this,`Perfect — I'll send the service booklet to you by text right now. Sarah, our quoting specialist, will have your quote sent over shortly. Leave it with me — I'll take care of it.`)">📋 Copy Close Script</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEARCH VIEW -->
+<div id="sv">
+  <div id="sr"></div>
+  <div class="sem-empty" id="nr" style="display:none">No messages found for that search.</div>
+</div>
+
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const el=document.getElementById('cat-'+t.dataset.cat);
+    if(el)el.classList.add('active');
+    document.getElementById('sv').classList.remove('on');
+    document.getElementById('si').value='';
+  });
+});
+
+// ── TOGGLE CARD / STEP / HOW ──
+function T(hd){hd.parentElement.classList.toggle('open')}
+function TS(hd){hd.parentElement.classList.toggle('open')}
+function toggleHow(){document.getElementById('howBanner').classList.toggle('open')}
+
+// ── COPY MESSAGE ──
+function C(btn){
+  const txt=btn.closest('.card-body').querySelector('.msg').textContent;
+  navigator.clipboard.writeText(txt.trim()).then(()=>{
+    const o=btn.innerHTML;btn.innerHTML='✅ Copied!';btn.classList.add('done');
+    setTimeout(()=>{btn.innerHTML=o;btn.classList.remove('done')},2000);
+  });
+}
+// ── COPY LINK ──
+function CL(btn,url){
+  navigator.clipboard.writeText(url).then(()=>{
+    btn.textContent='✅';btn.classList.add('done');
+    setTimeout(()=>{btn.textContent='📋';btn.classList.remove('done')},2000);
+  });
+}
+// ── COPY SCRIPT ──
+function CS(btn,txt){
+  navigator.clipboard.writeText(txt).then(()=>{
+    const o=btn.innerHTML;btn.innerHTML='✅ Copied!';btn.classList.add('done');
+    setTimeout(()=>{btn.innerHTML=o;btn.classList.remove('done')},2000);
+  });
+}
+
+// ── SEARCH ──
+const allCards=[];
+document.querySelectorAll('.card').forEach(card=>{
+  const title=card.querySelector('.card-title')?.textContent.replace('NEW','').trim()||'';
+  const sit=card.querySelector('.card-sit')?.textContent||'';
+  const body=card.querySelector('.msg')?.textContent||'';
+  const catEl=card.closest('.cat');
+  const catId=catEl?.id?.replace('cat-','');
+  const tabEl=document.querySelector(`[data-cat="${catId}"]`);
+  const catLabel=tabEl?.textContent?.trim()||catId;
+  allCards.push({title,sit,body,catId,catLabel});
+});
+
+document.getElementById('si').addEventListener('input',function(){
+  const q=this.value.trim().toLowerCase();
+  const sv=document.getElementById('sv');
+  const sr=document.getElementById('sr');
+  const nr=document.getElementById('nr');
+  if(!q){
+    sv.classList.remove('on');
+    document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));
+    const at=document.querySelector('.tab.active');
+    if(at){const el=document.getElementById('cat-'+at.dataset.cat);if(el)el.classList.add('active');}
+    return;
+  }
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));
+  sv.classList.add('on');
+  const hits=allCards.filter(m=>m.title.toLowerCase().includes(q)||m.sit.toLowerCase().includes(q)||m.body.toLowerCase().includes(q));
+  if(!hits.length){sr.innerHTML='';nr.style.display='block';return;}
+  nr.style.display='none';
+  sr.innerHTML=hits.map(m=>`
+    <div class="src">
+      <div class="src-hd"><div><div class="card-title">${m.title}</div><div class="src-from">${m.catLabel} · ${m.sit}</div></div></div>
+      <div class="src-body"><div class="msg" style="margin-top:10px">${m.body.trim()}</div><button class="cbtn" onclick="C(this)" style="margin-top:10px">📋 Copy Message</button></div>
+    </div>`).join('');
+});
+</script>
+</body>
+</html>
