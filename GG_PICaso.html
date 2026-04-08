@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gutter Ghosts — PICaso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #111111;
+    --surface:   #1C1C1C;
+    --surface2:  #252525;
+    --border:    #2e2e2e;
+    --pink:      #F17EA9;
+    --pink-glow: rgba(241,126,169,0.18);
+    --red:       #FF4D4D;
+    --red-glow:  rgba(255,77,77,0.18);
+    --green:     #3DDB7A;
+    --green-glow:rgba(61,219,122,0.18);
+    --white:     #FFFFFF;
+    --muted:     #666;
+    --text-sm:   13px;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── Page shell ── */
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px 40px;
+    gap: 24px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+
+  .title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 7vw, 38px);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  /* ── Mode selector ── */
+  .mode-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    animation: fadeUp 0.4s 0.08s ease both;
+  }
+
+  .mode-btn {
+    flex: 1;
+    padding: 14px 10px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    background: var(--surface);
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mode-btn .mode-icon { font-size: 22px; }
+
+  .mode-btn.active-before {
+    background: rgba(255,77,77,0.1);
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .mode-btn.active-after {
+    background: rgba(61,219,122,0.1);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* ── Upload zone ── */
+  .upload-zone {
+    width: 100%;
+    max-width: 400px;
+    border: 2px dashed var(--border);
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+    animation: fadeUp 0.4s 0.14s ease both;
+  }
+
+  .upload-zone.drag-over {
+    border-color: var(--pink);
+    background: var(--pink-glow);
+  }
+
+  .upload-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .upload-icon { font-size: 34px; margin-bottom: 8px; }
+
+  .upload-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .upload-text strong { color: var(--pink); }
+
+  /* ── Thumbnails ── */
+  .thumb-section {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .thumb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .thumb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .clear-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+  .thumb-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .thumb-item {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: var(--surface);
+  }
+
+  .thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .thumb-del {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: rgba(0,0,0,0.75);
+    border: none;
+    color: #fff;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Layout options ── */
+  .layout-section {
+    width: 100%;
+    max-width: 400px;
+    animation: fadeUp 0.4s 0.18s ease both;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .layout-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .layout-opt {
+    flex: 1;
+    padding: 10px 6px;
+    background: var(--surface);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .layout-opt.selected {
+    border-color: var(--pink);
+    background: var(--pink-glow);
+  }
+
+  .layout-opt .lo-icon {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+
+  .layout-opt .lo-text {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+  }
+
+  .layout-opt.selected .lo-text { color: var(--pink); }
+
+  /* ── Generate button ── */
+  .gen-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: transform 0.1s, box-shadow 0.2s, opacity 0.2s;
+    background: var(--pink);
+    color: #111;
+    box-shadow: 0 8px 28px rgba(241,126,169,0.3);
+    animation: fadeUp 0.4s 0.22s ease both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .gen-btn:active { transform: scale(0.97); }
+  .gen-btn:disabled { opacity: 0.3; cursor: not-allowed; box-shadow: none; }
+
+  /* ── Status ── */
+  .status-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--pink);
+    min-height: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .status-line.error { color: var(--red); }
+
+  /* ── Result ── */
+  .result-section {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .result-img-wrap {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    position: relative;
+  }
+
+  .result-img-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  .save-hint {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  .save-hint span { color: var(--green); }
+
+  /* ── Hidden canvas ── */
+  canvas { display: none; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">👻 Gutter Ghosts</div>
+    <div class="title">PICaso</div>
+  </div>
+
+  <!-- Mode Toggle -->
+  <div class="mode-row">
+    <button class="mode-btn active-before" id="btn-before" onclick="setMode('before')">
+      <span class="mode-icon">🔴</span>
+      BEFORE
+    </button>
+    <button class="mode-btn" id="btn-after" onclick="setMode('after')">
+      <span class="mode-icon">🟢</span>
+      AFTER
+    </button>
+  </div>
+
+  <!-- Upload Zone -->
+  <div class="upload-zone" id="drop-zone">
+    <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp,image/heic" onchange="handleFiles(this.files)">
+    <div class="upload-icon">📂</div>
+    <div class="upload-text">Tap to <strong>add photos</strong> from your camera roll<br><span style="font-size:12px;color:#444;">JPG · PNG · HEIC supported</span></div>
+  </div>
+
+  <!-- Thumbnails (shown once images added) -->
+  <div class="thumb-section" id="thumb-section" style="display:none">
+    <div class="thumb-header">
+      <span class="thumb-label" id="thumb-count-label">0 photos</span>
+      <button class="clear-btn" onclick="clearImages()">Clear all</button>
+    </div>
+    <div class="thumb-grid" id="thumb-grid"></div>
+  </div>
+
+  <!-- Layout Options -->
+  <div class="layout-section">
+    <span class="section-label">Collage Layout</span>
+    <div class="layout-row">
+      <div class="layout-opt selected" id="lo-auto" onclick="setLayout('auto')">
+        <div class="lo-icon">⚡</div>
+        <div class="lo-text">AUTO</div>
+      </div>
+      <div class="layout-opt" id="lo-2col" onclick="setLayout('2col')">
+        <div class="lo-icon">▪▪</div>
+        <div class="lo-text">2 COL</div>
+      </div>
+      <div class="layout-opt" id="lo-3col" onclick="setLayout('3col')">
+        <div class="lo-icon">▪▪▪</div>
+        <div class="lo-text">3 COL</div>
+      </div>
+      <div class="layout-opt" id="lo-1col" onclick="setLayout('1col')">
+        <div class="lo-icon">▬</div>
+        <div class="lo-text">STRIP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generate -->
+  <button class="gen-btn" id="gen-btn" onclick="generate()" disabled>
+    ⚡ Generate Collage
+  </button>
+
+  <!-- Status -->
+  <div class="status-line" id="status"></div>
+
+  <!-- Result -->
+  <div class="result-section" id="result-section" style="display:none">
+    <div class="result-img-wrap">
+      <img id="result-img" src="" alt="Collage">
+    </div>
+    <div class="save-hint">Long-press image → <span>Save to Photos</span></div>
+  </div>
+
+</div>
+
+<canvas id="c"></canvas>
+
+<script>
+  let mode = 'before';
+  let images = []; // {dataUrl, file}
+  let layout = 'auto';
+
+  // ── Mode ──
+  function setMode(m) {
+    mode = m;
+    document.getElementById('btn-before').className = 'mode-btn' + (m === 'before' ? ' active-before' : '');
+    document.getElementById('btn-after').className  = 'mode-btn' + (m === 'after'  ? ' active-after'  : '');
+  }
+
+  // ── Layout ──
+  function setLayout(l) {
+    layout = l;
+    ['auto','2col','3col','1col'].forEach(k => {
+      document.getElementById('lo-' + k).classList.toggle('selected', k === l);
+    });
+  }
+
+  // ── Files ──
+  function handleFiles(fileList) {
+    const files = Array.from(fileList);
+    files.forEach(file => {
+      if (!file.type.startsWith('image/') && !file.name.toLowerCase().endsWith('.heic')) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        images.push({ dataUrl: e.target.result });
+        renderThumbs();
+      };
+      reader.readAsDataURL(file);
+    });
+    document.getElementById('file-input').value = '';
+  }
+
+  function removeImage(i) {
+    images.splice(i, 1);
+    renderThumbs();
+  }
+
+  function clearImages() {
+    images = [];
+    renderThumbs();
+  }
+
+  function renderThumbs() {
+    const section = document.getElementById('thumb-section');
+    const grid    = document.getElementById('thumb-grid');
+    const genBtn  = document.getElementById('gen-btn');
+    const label   = document.getElementById('thumb-count-label');
+
+    genBtn.disabled = images.length === 0;
+
+    if (images.length === 0) { section.style.display = 'none'; return; }
+
+    section.style.display = 'block';
+    label.textContent = images.length + ' photo' + (images.length !== 1 ? 's' : '');
+    grid.innerHTML = images.map((img, i) => `
+      <div class="thumb-item">
+        <img src="${img.dataUrl}" alt="">
+        <button class="thumb-del" onclick="removeImage(${i})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  // ── Generate ──
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  function loadImgElement(dataUrl) {
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.onload  = () => res(img);
+      img.onerror = () => rej(new Error('Failed to load image'));
+      img.src = dataUrl;
+    });
+  }
+
+  async function generate() {
+    if (images.length === 0) return;
+    const status      = document.getElementById('status');
+    const resultSec   = document.getElementById('result-section');
+    const resultImg   = document.getElementById('result-img');
+    const canvas      = document.getElementById('c');
+    const ctx         = canvas.getContext('2d');
+    const genBtn      = document.getElementById('gen-btn');
+
+    genBtn.disabled = true;
+    status.className = 'status-line';
+    status.textContent = 'Loading images…';
+    resultSec.style.display = 'none';
+
+    try {
+      // Load all
+      const loaded = [];
+      for (let i = 0; i < images.length; i++) {
+        status.textContent = `Loading ${i + 1} / ${images.length}…`;
+        const el = await loadImgElement(images[i].dataUrl);
+        loaded.push(el);
+        await sleep(20);
+      }
+
+      // Determine grid
+      const count = loaded.length;
+      let cols;
+      if (layout === '1col')       cols = 1;
+      else if (layout === '2col')  cols = 2;
+      else if (layout === '3col')  cols = 3;
+      else /* auto */              cols = count <= 2 ? count : count <= 4 ? 2 : 3;
+
+      const rows  = Math.ceil(count / cols);
+      const PAD   = 12;
+      const CELL_W = 360;
+      const CELL_H = 480;
+      const HEADER_H = 72;
+
+      canvas.width  = cols * CELL_W + (cols + 1) * PAD;
+      canvas.height = HEADER_H + rows * CELL_H + (rows + 1) * PAD;
+
+      // Theme
+      const accentColor = mode === 'before' ? '#FF4D4D' : '#3DDB7A';
+      const labelText   = mode === 'before' ? 'BEFORE'  : 'AFTER';
+      const bgColor     = '#111111';
+
+      // Background
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Accent top bar
+      ctx.fillStyle = accentColor;
+      ctx.fillRect(0, 0, canvas.width, 5);
+
+      // Header label
+      const hx = PAD;
+      const hy = 12;
+      const hw = canvas.width - PAD * 2;
+      const hh = HEADER_H - 18;
+
+      // Label pill bg
+      const grad = ctx.createLinearGradient(hx, hy, hx + hw, hy);
+      grad.addColorStop(0, mode === 'before' ? 'rgba(255,77,77,0.15)' : 'rgba(61,219,122,0.12)');
+      grad.addColorStop(1, 'rgba(17,17,17,0)');
+      ctx.fillStyle = grad;
+      roundRect(ctx, hx, hy, hw, hh, 12);
+      ctx.fill();
+
+      ctx.strokeStyle = accentColor;
+      ctx.lineWidth = 2;
+      roundRect(ctx, hx, hy, hw, hh, 12);
+      ctx.stroke();
+
+      // Label text
+      ctx.fillStyle  = accentColor;
+      ctx.font       = 'bold 28px "Syne", sans-serif';
+      ctx.textAlign  = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(labelText, canvas.width / 2, hy + hh / 2);
+
+      // Count badge
+      ctx.font = '14px "DM Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.fillText(`${count} PHOTO${count !== 1 ? 'S' : ''}`, canvas.width / 2, hy + hh / 2 + 26);
+
+      // Draw cells
+      for (let i = 0; i < loaded.length; i++) {
+        status.textContent = `Building collage… ${i + 1}/${count}`;
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x   = PAD + col * (CELL_W + PAD);
+        const y   = HEADER_H + PAD + row * (CELL_H + PAD);
+        const img = loaded[i];
+
+        // Cell bg
+        ctx.fillStyle = '#1a1a1a';
+        roundRect(ctx, x, y, CELL_W, CELL_H, 10);
+        ctx.fill();
+
+        // Cover-fit image
+        const imgRatio = img.width / img.height;
+        const cellRatio = CELL_W / CELL_H;
+        let sx, sy, sw, sh;
+        if (imgRatio > cellRatio) {
+          sh = img.height; sw = img.height * cellRatio;
+          sx = (img.width - sw) / 2; sy = 0;
+        } else {
+          sw = img.width; sh = img.width / cellRatio;
+          sx = 0; sy = (img.height - sh) / 2;
+        }
+
+        // Clip to rounded rect
+        ctx.save();
+        roundRect(ctx, x, y, CELL_W, CELL_H, 10);
+        ctx.clip();
+        ctx.drawImage(img, sx, sy, sw, sh, x, y, CELL_W, CELL_H);
+        ctx.restore();
+
+        // Number badge
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        roundRect(ctx, x + 8, y + 8, 30, 22, 5);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 13px "DM Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(i + 1, x + 23, y + 19);
+
+        await sleep(20);
+      }
+
+      // Bottom GG branding strip
+      ctx.fillStyle = 'rgba(0,0,0,0.5)';
+      ctx.fillRect(0, canvas.height - 26, canvas.width, 26);
+      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.font = '10px "DM Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('GUTTER GHOSTS  ·  gutterghosts.ca', canvas.width / 2, canvas.height - 13);
+
+      status.textContent = 'Finalizing…';
+      await sleep(80);
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      resultImg.src = dataUrl;
+      resultSec.style.display = 'flex';
+      resultSec.style.flexDirection = 'column';
+      status.textContent = '✓ Done — long-press image to save';
+
+    } catch(e) {
+      status.className = 'status-line error';
+      status.textContent = 'Error: ' + e.message;
+    }
+
+    genBtn.disabled = images.length === 0;
+  }
+
+  // ── Rounded rect helper ──
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  // ── Drag & Drop ──
+  const dz = document.getElementById('drop-zone');
+  dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', ()  => dz.classList.remove('drag-over'));
+  dz.addEventListener('drop',      e  => {
+    e.preventDefault();
+    dz.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+</script>
+</body>
+</html>
