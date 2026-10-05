@@ -226,8 +226,9 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 </style>
+<link rel="stylesheet" href="assets/hub.css">
 </head>
-<body>
+<body data-gg-page="home">
 <div class="wrapper">
 
   <div class="eyebrow">Internal Operations</div>
@@ -293,5 +294,6 @@
   const now = new Date();
   ts.textContent = now.toLocaleDateString('en-CA', { year:'numeric', month:'short', day:'numeric' });
 </script>
+<script src="assets/config.js"></script><script src="assets/store.js"></script><script src="assets/hub.js"></script>
 </body>
 </html>
