@@ -1,0 +1,1249 @@
+{
+  "categories": [
+    {
+      "id": "lead",
+      "scope": "master",
+      "title": "📋 Lead Intake",
+      "description": "First responses to inbound inquiries, form routing, and lead info collection.",
+      "order": 0
+    },
+    {
+      "id": "quote",
+      "scope": "master",
+      "title": "📤 Quote Follow-Up",
+      "description": "Nudges, soft pushes, hard closes, and last-attempt messages to convert approved quotes.",
+      "order": 1
+    },
+    {
+      "id": "booking",
+      "scope": "master",
+      "title": "✅ Booking",
+      "description": "Night-before and day-of messages to confirmed clients.",
+      "order": 2
+    },
+    {
+      "id": "dispatch",
+      "scope": "master",
+      "title": "🚗 Day-Of Logistics",
+      "description": "Running late, early arrival, ETA, and en-route messages.",
+      "order": 3
+    },
+    {
+      "id": "fillin",
+      "scope": "master",
+      "title": "📍 Fill-In Leads",
+      "description": "Same-day area outreach, discount offers, and pulling forward scheduled services.",
+      "order": 4
+    },
+    {
+      "id": "onsite",
+      "scope": "master",
+      "title": "🔧 On-Site",
+      "description": "Scope changes, access issues, safety holds, and job-blocking situations.",
+      "order": 5
+    },
+    {
+      "id": "weather",
+      "scope": "master",
+      "title": "🌧️ Weather",
+      "description": "Rain, wind, snow, and extreme heat — delay and reschedule communication.",
+      "order": 6
+    },
+    {
+      "id": "postjob",
+      "scope": "master",
+      "title": "📸 Post-Job",
+      "description": "Job complete messages, photo sends, review requests, payment follow-ups, and referral asks.",
+      "order": 7
+    },
+    {
+      "id": "upsell",
+      "scope": "master",
+      "title": "💰 Upsell",
+      "description": "On-site upsell notices, bundle pitches, and add-on outreach.",
+      "order": 8
+    },
+    {
+      "id": "faqs",
+      "scope": "master",
+      "title": "❓ FAQs",
+      "description": "Ready answers for the most common client questions — copy and send as-is.",
+      "order": 9
+    },
+    {
+      "id": "forms",
+      "scope": "master",
+      "title": "🗒️ Request Forms",
+      "description": "Jobber request links — 📋 copies the URL, ↗ opens the form directly.",
+      "order": 10
+    },
+    {
+      "id": "booklets",
+      "scope": "master",
+      "title": "📎 Booklets",
+      "description": "All booklets live in Google Drive — open folder, then share individual PDFs with clients.",
+      "order": 11
+    },
+    {
+      "id": "mockcall",
+      "scope": "master",
+      "title": "🧙🏻‍♂️ Mock Call",
+      "description": "Step-by-step inbound call flow — greeting to close. Tap each step to expand.",
+      "order": 12
+    },
+    {
+      "id": "holiday",
+      "scope": "master",
+      "title": "🎄 Holiday Lighting",
+      "description": "Shared with the dedicated Holiday Lighting board.",
+      "order": 13,
+      "aggregate": true
+    },
+    {
+      "id": "holiday-calls",
+      "scope": "holiday",
+      "title": "Phone Scripts",
+      "description": "",
+      "order": 0
+    },
+    {
+      "id": "holiday-emails",
+      "scope": "holiday",
+      "title": "Emails",
+      "description": "",
+      "order": 1
+    },
+    {
+      "id": "holiday-texts",
+      "scope": "holiday",
+      "title": "Texts",
+      "description": "",
+      "order": 2
+    },
+    {
+      "id": "holiday-followup",
+      "scope": "holiday",
+      "title": "Follow-up Process",
+      "description": "",
+      "order": 3
+    },
+    {
+      "id": "holiday-prompts",
+      "scope": "holiday",
+      "title": "Mock-up Prompts",
+      "description": "",
+      "order": 4
+    },
+    {
+      "id": "holiday-files",
+      "scope": "holiday",
+      "title": "Booklets & Files",
+      "description": "",
+      "order": 5
+    },
+    {
+      "id": "holiday-questions",
+      "scope": "holiday",
+      "title": "Q&A Sequence",
+      "description": "",
+      "order": 6
+    }
+  ],
+  "items": [
+    {
+      "id": "lead-0",
+      "category": "lead",
+      "title": "Sent Request Link / Form Completed",
+      "description": "Client completed the Jobber request form",
+      "body": "Hello, it's Josh from GUTTER GHOSTS.\n\nThank you for completing the service request form.\n\nSarah, our quoting specialist, will send your quote by email and text as soon as possible.\n\nIn the meantime, please reference the service booklets attached below.\n\nIf you have any questions, please reach out using the number or email listed below and we will be happy to assist you.\n\nGUTTER GHOSTS\nJosh (CEO)\n647-871-0294\ngutterghoststeam@gmail.com",
+      "tags": "👤 Backend · 📎 Service booklets",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "lead-1",
+      "category": "lead",
+      "title": "Request Link Sent / Form Status Pending",
+      "description": "Request link sent, awaiting client completion",
+      "body": "Hello, it's [INSERT NAME] from GUTTER GHOSTS.\n\nI'm the crew member assigned to serve you once the form is submitted and the quote is approved.\n\nIn the meantime, please reference the service booklets attached below.\n\nGUTTER GHOSTS\n[INSERT NAME]\n[INSERT NUMBER]\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend · 📎 Service booklets",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "lead-2",
+      "category": "lead",
+      "title": "Identify Service Before Sending Form",
+      "description": "Client inquires but service is unclear",
+      "body": "Hello, it's [INSERT NAME] from GUTTER GHOSTS.\n\nThank you for your inquiry.\n\nWhich service would you like to receive a quote for?\n\n1. Gutter Cleaning\n2. Exterior Window Cleaning\n3. Gutter + Window Cleaning Bundle\n4. Gutter Guards\n5. Downspout Services\n6. Gutter Inspections\n7. Holiday Lighting\n\nOnce you select your service, I will send the correct request form for you to complete so we can prepare your quote.\n\nGUTTER GHOSTS\n[INSERT NAME]\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend · 📎 Relevant service booklet(s)",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "lead-3",
+      "category": "lead",
+      "title": "New Inquiry / No Lead Info Provided",
+      "description": "Client reaches out by text with limited information",
+      "body": "Hello, it's [INSERT NAME] from GUTTER GHOSTS.\n\nThank you for your inquiry into our services.\n\nTo provide you with the most accurate quote possible, please send the following:\n\n- Name\n- Email\n- Phone Number\n- Home Address\n- Service Requested\n\nOnce we receive this information, your quote will be sent by email and text message.\n\nIn the meantime, I'll send over our service booklets for your reference.\n\nWe're here to answer any questions you may have.\n\nGUTTER GHOSTS\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend · 📎 Service booklets",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "lead-4",
+      "category": "lead",
+      "title": "New Inquiry / Multi-Choice Conversation Starter",
+      "description": "Friendly first reply to an inbound lead",
+      "body": "Hello, it's [INSERT NAME] from GUTTER GHOSTS.\n\nThank you for your inquiry.\n\nHow can I best help you today?\n\n1. Tell me which services GUTTER GHOSTS offers\n2. Provide me with a quote for the service I need\n3. Tell me about bundling services to save more\n4. Tell me a joke first, then we can talk",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "lead-5",
+      "category": "lead",
+      "title": "Direct Jobber Link Flow — Part 1 & 2",
+      "description": "Two-part conversation leading client to request form",
+      "body": "PART 1:\nHello, it's [INSERT NAME] from GUTTER GHOSTS.\n\nThank you for your inquiry.\n\nHow can I best help you today?\n\n---\n\nPART 2:\nAbsolutely — we can have your quote sent over very quickly.\n\nPlease click the link below and complete the short 60-second service form:\n\n[INSERT JOBBER REQUEST LINK]\n\nOnce the form is complete, you will receive a quote for the selected service.\n\nIn the meantime, I've attached our service booklets for your reference.\n\nGUTTER GHOSTS\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend · 📎 Service booklets (after Part 2)",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "lead-6",
+      "category": "lead",
+      "title": "Quote Being Prepared / Short Delay",
+      "description": "Information received, quote not yet sent",
+      "body": "Your quote is currently being prepared. You will receive a notification by email and text once it has been sent, along with additional service information.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 6,
+      "attachments": []
+    },
+    {
+      "id": "lead-7",
+      "category": "lead",
+      "title": "Quote Being Prepared / Sarah Notified",
+      "description": "Confirming the quote request is in motion",
+      "body": "Thank you for providing that information. Our quoting specialist, Sarah, has been notified. Please expect your quote shortly by email and text.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 7,
+      "attachments": []
+    },
+    {
+      "id": "lead-8",
+      "category": "lead",
+      "title": "Quote Delay / High Volume",
+      "description": "Longer delay due to peak season",
+      "body": "Just a quick heads up — your quote may take a little longer than usual due to the high volume of requests we receive this time of year. Thank you in advance for your patience.\n\nYour quote will be sent by email and text.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 8,
+      "attachments": []
+    },
+    {
+      "id": "lead-9",
+      "category": "lead",
+      "title": "Quote Delay / Follow Up if Not Received",
+      "description": "Client waiting too long, nudge to notify us",
+      "body": "Please let me know if you do not receive your quote within the next hour. Our quoting specialist, Sarah, is handling a high volume of requests this time of year.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 9,
+      "attachments": []
+    },
+    {
+      "id": "lead-10",
+      "category": "lead",
+      "title": "Outside Service Area NEW",
+      "description": "Client is located outside Durham Region / GTA coverage",
+      "body": "Hi there, thank you for reaching out to GUTTER GHOSTS.\n\nUnfortunately, your property falls outside of our current service area. We primarily service Durham Region and the surrounding GTA.\n\nWe hope you find a great provider, and if your situation ever changes, we'd love to help.\n\nGUTTER GHOSTS\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 10,
+      "attachments": []
+    },
+    {
+      "id": "lead-11",
+      "category": "lead",
+      "title": "Inbound Call — Info Collected, Next Steps NEW",
+      "description": "After a phone call — sending recap and booklets by text",
+      "body": "Hi [INSERT CLIENT NAME], it's [INSERT NAME] from GUTTER GHOSTS — great speaking with you just now.\n\nAs promised, I've attached our service booklets below for your reference.\n\nSarah will have your quote sent shortly by email and text. Leave it with us — we'll take care of everything from here.\n\nGUTTER GHOSTS\n647-871-0294\ngutterghoststeam@gmail.com",
+      "tags": "👤 Groundsmen / Backend · 📎 Service booklets",
+      "kind": "template",
+      "order": 11,
+      "attachments": []
+    },
+    {
+      "id": "quote-0",
+      "category": "quote",
+      "title": "Confirm Quote Was Received",
+      "description": "Nudge after quote was sent — Day 1",
+      "body": "Hi there, just checking in to see if you received the quote from Sarah, our quoting specialist. At times, delivery can take a little longer due to the high volume of requests we receive.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "quote-1",
+      "category": "quote",
+      "title": "Soft Approval Push",
+      "description": "Quote sent — technician introduces self, Day 1–2",
+      "body": "Hi there, it's [INSERT NAME] from GUTTER GHOSTS.\n\nI'll be one of the technicians assigned to serve you once the quote is approved.\n\nI'm confident we will exceed your expectations. Please do not hesitate to reach out if you have any questions before moving forward.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "quote-2",
+      "category": "quote",
+      "title": "Hard Approval Push",
+      "description": "Encourage approval or surface objections — Day 2–3",
+      "body": "Hi there, it's [INSERT NAME] from GUTTER GHOSTS.\n\nI'll be the technician assigned to serve you.\n\nSarah sent your quote, which should have been delivered by email and text.\n\nIf you would like to go ahead with booking, simply reply APPROVED and leave the rest to us.\n\nIf you are unsure, let me know what is making you hesitate and I'll do my best to help.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "quote-3",
+      "category": "quote",
+      "title": "No Response After X Days",
+      "description": "Quote sent, no reply after several days",
+      "body": "Hi there, it's [INSERT NAME] from GUTTER GHOSTS.\n\nSarah sent your quote [INSERT NUMBER OF DAYS] days ago, so I just wanted to check in.\n\nI'm the technician assigned to serve you, and I'd love to help get this task crossed off your list.\n\nIf you'd like to move forward, I can help arrange the nearest available service date now.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "quote-4",
+      "category": "quote",
+      "title": "Owner Follow-Up",
+      "description": "CEO stepping in for stronger push",
+      "body": "Hi there, Josh here from GUTTER GHOSTS.\n\nAs the owner, it's my responsibility to ensure your customer service experience is exceptional.\n\nWe currently have a crew available on [INSERT DATE/TIME] and I can assign them to your service while they are nearby.\n\nWe're ready to serve you.",
+      "tags": "👤 Backend",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "quote-5",
+      "category": "quote",
+      "title": "Dead Quote / Multi-Option Re-Engagement",
+      "description": "Quote ignored, declined, or stalled",
+      "body": "Hi there, it's [INSERT NAME] from GUTTER GHOSTS.\n\nOur quoting specialist, Sarah, let me know your quote has not yet been approved.\n\nMy goal is to help get the service completed for you. What can I do to help move this forward?\n\n1. Speak with Sarah to see whether the quote can be adjusted\n2. See whether bundling another service could reduce the price\n3. Go ahead and book the service now\n\nWe're here to serve you and always do our best to make things work for our clients.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "quote-6",
+      "category": "quote",
+      "title": "Friendly Nearby Prompt",
+      "description": "Client has not approved — technician is near property",
+      "body": "Hello [INSERT CLIENT NAME],\n\nI'm not sure of the current status of your quote, but I wanted to let you know I'll be in your area [TODAY / TOMORROW] and may be able to complete the service while I'm nearby.\n\nNo pressure at all — just thought I'd reach out.\n\nGUTTER GHOSTS\n[INSERT NAME]\n[INSERT EMAIL]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 6,
+      "attachments": []
+    },
+    {
+      "id": "quote-7",
+      "category": "quote",
+      "title": "Discount Push While Nearby",
+      "description": "Reduced rate offered due to proximity / open slot",
+      "body": "Good [morning / afternoon / evening], [INSERT CLIENT NAME].\n\nIt's [INSERT NAME] from GUTTER GHOSTS.\n\nI spoke with our quoting specialist and mentioned I'll be near your area this [INSERT DAY] with availability at [INSERT TIME].\n\nBecause of that, we can reduce your quote from [INSERT ORIGINAL PRICE] to [INSERT NEW PRICE].\n\nNo pressure whatsoever — I just wanted to let you know since I'm nearby and available.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 7,
+      "attachments": []
+    },
+    {
+      "id": "quote-8",
+      "category": "quote",
+      "title": "Last Attempt",
+      "description": "Final quote push before closing lead",
+      "body": "Hello [INSERT CLIENT NAME],\n\nIt's [INSERT NAME] from GUTTER GHOSTS.\n\nI'll keep this brief — I have one remaining opening on [INSERT DATE] at [INSERT TIME] and can complete your service then if that works for you.\n\nNo pressure at all. Availability is tight, and I know this is a service that needs attention.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 8,
+      "attachments": []
+    },
+    {
+      "id": "booking-0",
+      "category": "booking",
+      "title": "Night-Before Service Reminder NEW",
+      "description": "Sent the evening before a confirmed booking",
+      "body": "Hi [INSERT CLIENT NAME],\n\nIt's [INSERT NAME] from GUTTER GHOSTS — just a quick reminder that your [INSERT SERVICE] is booked for tomorrow.\n\nArrival window: [INSERT TIME WINDOW]\n\nYou do not need to be home. We'll send you an update when we're on our way and again when the job is complete.\n\nSee you tomorrow.\n\nGUTTER GHOSTS",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "booking-1",
+      "category": "booking",
+      "title": "Booking Confirmation / Client Present",
+      "description": "Day-of confirmation — client will be home",
+      "body": "Hi [INSERT CLIENT NAME],\n\nIt's [INSERT NAME] from GUTTER GHOSTS.\n\nI'll be one of the technicians assigned to serve you today.\n\nLooking forward to providing you with exceptional service.\n\nSee you shortly.\n\nGUTTER GHOSTS",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "booking-2",
+      "category": "booking",
+      "title": "Booking Confirmation / Client Not Home",
+      "description": "Day-of message — client does not need to be present",
+      "body": "Hi [INSERT CLIENT NAME],\n\nIt's [INSERT NAME] from GUTTER GHOSTS.\n\nI'll keep you in the loop from arrival through to job completion.\n\nLooking forward to serving you today.\n\nGUTTER GHOSTS",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "booking-3",
+      "category": "booking",
+      "title": "Client Requests Reschedule NEW",
+      "description": "Confirmed booking — client needs to change date",
+      "body": "Hi [INSERT CLIENT NAME], no problem at all — we'll get you moved.\n\nPlease reply with a few dates and times that work for you and Sarah will confirm your updated booking as soon as possible.\n\nGUTTER GHOSTS\n647-871-0294",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-0",
+      "category": "dispatch",
+      "title": "Running Late / Client Home",
+      "description": "Crew delayed — client is present",
+      "body": "Hello [INSERT CLIENT NAME],\n\nI'm running a little behind for today's service, as my previous job took longer than expected.\n\nMy updated estimated arrival time is [INSERT ETA].\n\nThank you in advance for your patience and understanding.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-1",
+      "category": "dispatch",
+      "title": "Running Late / Client Not Home",
+      "description": "Crew delayed — client is not present",
+      "body": "Hi [INSERT CLIENT NAME],\n\nJust keeping you in the loop — I'll be arriving closer to [INSERT TIME] instead of the original arrival time.\n\nI'll send your service documentation and results once the work is complete.\n\nThank you for your patience. I'll be there soon.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-2",
+      "category": "dispatch",
+      "title": "Early Arrival Request",
+      "description": "Crew can arrive earlier than scheduled",
+      "body": "Hello [INSERT CLIENT NAME],\n\nI'm running earlier than expected for today's service.\n\nWould it be alright if I arrived at [INSERT TIME] instead of the originally scheduled arrival time?\n\nThank you in advance. I look forward to serving you.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-3",
+      "category": "dispatch",
+      "title": "Nearby / Can Start Earlier",
+      "description": "Crew is close by and wants to begin early",
+      "body": "Hi [INSERT CLIENT NAME],\n\nI'm just wrapping up a job nearby and am only [INSERT TRAVEL TIME] away from your property.\n\nWould it be alright if I came by now and started the service earlier than expected?\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-4",
+      "category": "dispatch",
+      "title": "On Our Way / ETA",
+      "description": "Sending ETA when no Jobber automation is used",
+      "body": "Hi [INSERT CLIENT NAME],\n\nIt's [INSERT NAME] from GUTTER GHOSTS.\n\nI'm on route to your property. My estimated arrival time is:\n\n[INSERT TIME]\n\nSee you soon.",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "dispatch-5",
+      "category": "dispatch",
+      "title": "On Our Way / Booking Time Confirmed",
+      "description": "Confirming scheduled arrival window",
+      "body": "Hi, [INSERT NAME] from GUTTER GHOSTS here.\n\nJust confirming my arrival time as listed in your service booking.\n\nI'll keep you posted throughout the service until completion.",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "fillin-0",
+      "category": "fillin",
+      "title": "We're in Your Area Today",
+      "description": "Pending quote — same-day fill-in attempt",
+      "body": "Hey [INSERT CLIENT NAME],\n\nI'm not sure of the current status of your quote, but I wanted to let you know I'll be in your area [INSERT AREA / STREET / DETAILS] and may be able to complete the service while I'm nearby.\n\nYou do not need to be home. I'll keep you updated from arrival to departure and will send your service results afterward.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "fillin-1",
+      "category": "fillin",
+      "title": "We're in Your Area / Discount Offer",
+      "description": "Nearby opening with discount incentive",
+      "body": "Hello [INSERT CLIENT NAME],\n\nI'm not sure of the status of your quote, however I recently spoke with our CEO and was told I could offer an additional [INSERT AMOUNT] off your previous quote, as we'll be only a couple of blocks away completing work today.\n\nNo pressure at all — I just wanted to let you know since I'll be nearby.\n\nHave a great day, and hopefully I hear from you soon.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "fillin-2",
+      "category": "fillin",
+      "title": "Approved Lead / Pull Service Forward",
+      "description": "Already booked — technician wants to complete today",
+      "body": "Hello [INSERT CLIENT NAME],\n\nI'm the technician assigned to your [INSERT SERVICE].\n\nI know your service is not booked for today, but I'm nearby and have availability to complete it today if that works for you.\n\nI know this is last minute, and no worries at all if you would prefer to keep your assigned service date.",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "onsite-0",
+      "category": "onsite",
+      "title": "Scope Change Discovered On Site",
+      "description": "Scope increased from original quote",
+      "body": "Hi [INSERT CLIENT NAME],\n\nI noticed that [INSERT SCOPE / ISSUE] was not included in your original service request.\n\nPer our process, this would require an additional [INSERT AMOUNT], as it involves added time, labour, or materials.\n\nIf you would prefer to leave it for now, we can continue with the originally quoted service and leave [INSERT SCOPE / ISSUE] as is.",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "onsite-1",
+      "category": "onsite",
+      "title": "Exterior Water Not Available",
+      "description": "Window cleaning delayed — no water access",
+      "body": "Hey [INSERT CLIENT NAME],\n\nAs mentioned previously, we require exterior water access to be turned on before arrival in order to complete today's service successfully.\n\nUnfortunately, today's service must be delayed. A member of our team will follow up with next steps.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "onsite-2",
+      "category": "onsite",
+      "title": "Cannot Complete Today / Scope Mismatch",
+      "description": "Scope differs from what was originally outlined",
+      "body": "Hi, upon arrival we found that the scope of work differs from what was originally outlined, and we're unable to complete the service properly today.\n\nWe will need to reschedule once the updated scope has been reviewed and confirmed.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "onsite-3",
+      "category": "onsite",
+      "title": "Cannot Complete Today / Safety Concern",
+      "description": "Roof, gutter, or access conditions unsafe",
+      "body": "Hi, after assessing the property, we identified safety concerns with the current roof, gutter, or access conditions that prevent us from completing the job safely today.\n\nWe will need to reschedule once we review the safest way to proceed.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "onsite-4",
+      "category": "onsite",
+      "title": "Cannot Complete Today / Property Not Ready",
+      "description": "Access, utilities, or site readiness issue",
+      "body": "Hi, we're unable to complete the service today because the property is not fully ready for the work, as required access or utilities are not currently available.\n\nWe will need to reschedule for a time when everything is accessible and ready to go.",
+      "tags": "👤 Groundsmen",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "weather-0",
+      "category": "weather",
+      "title": "Weather Delay / General",
+      "description": "Rain, wind, snow, or unsafe conditions",
+      "body": "Hi, due to today's weather conditions, we're unable to complete your service safely and successfully.\n\nWe will need to reschedule your booking. Please leave it with us, and we will follow up as soon as our next available service date is confirmed.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "weather-1",
+      "category": "weather",
+      "title": "Weather Delay / Extreme Heat",
+      "description": "Extreme heat prevents safe execution",
+      "body": "Hi, due to extreme heat conditions, we're unable to complete your service safely and properly today.\n\nWe will need to reschedule your booking. Please leave it with us, and we will follow up with your next available service date and booking confirmation.\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "postjob-0",
+      "category": "postjob",
+      "title": "Job Complete / Send Checklist + Photos",
+      "description": "Standard completion message — send after every single job",
+      "body": "Hi, your service has been completed.\n\nI've attached the following:\n\n- Your job review checklist, showing what was completed today and any service recommendations\n- Before-and-after results of the service\n\nIn regard to your invoice, our quoting specialist will send that later this evening by email.\n\nThank you for trusting GUTTER GHOSTS with your service.",
+      "tags": "👤 Groundsmen · 📎 Job checklist + before/after photos",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "postjob-1",
+      "category": "postjob",
+      "title": "Google Review Request NEW",
+      "description": "Send same day or day after job completion",
+      "body": "Hi [INSERT CLIENT NAME], it's [INSERT NAME] from GUTTER GHOSTS — thank you again for trusting us with your service today.\n\nIf you're happy with the results, a quick Google review would mean the world to us. It's how we grow and continue serving homeowners across the region.\n\nTakes less than a minute 👇\n[INSERT GOOGLE REVIEW LINK]\n\nWe truly appreciate it. 🙏",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "postjob-2",
+      "category": "postjob",
+      "title": "Invoice Follow-Up / Payment Reminder NEW",
+      "description": "Invoice unpaid 24–48 hours after service",
+      "body": "Hi [INSERT CLIENT NAME], just a friendly follow-up from GUTTER GHOSTS.\n\nYour invoice for [INSERT SERVICE] completed on [INSERT DATE] is still outstanding.\n\nYou can pay directly through the invoice link sent by Sarah — by credit card or e-transfer.\n\nIf you have any questions or didn't receive the invoice, please let us know and we'll resend it right away.\n\nThank you!\nGUTTER GHOSTS\n647-871-0294",
+      "tags": "👤 Backend",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "postjob-3",
+      "category": "postjob",
+      "title": "Client Complaint / Concern After Service NEW",
+      "description": "Client reports an issue or is unhappy with results",
+      "body": "Hi [INSERT CLIENT NAME], thank you for letting us know — and I'm sorry to hear about your experience.\n\nThis is not the standard we hold ourselves to, and I want to make it right.\n\nCould you please send photos or a description of the concern? I'll review it personally and follow up with next steps as soon as possible.\n\nJosh Chapman\nGUTTER GHOSTS\n647-871-0294",
+      "tags": "👤 Backend",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "postjob-4",
+      "category": "postjob",
+      "title": "Referral Ask",
+      "description": "Post-job referral request — ideally sent with review ask",
+      "body": "It was a pleasure serving you today.\n\nIf you know any friends, family, or neighbours who may need our services, please feel free to send them our way.\n\nWe'll take great care of them, and if they move forward with us, we'll be sure to remember you on your next service.",
+      "tags": "👤 Groundsmen / Backend · 📎 Referral link if applicable",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "postjob-5",
+      "category": "postjob",
+      "title": "Seasonal Follow-Up / Spring to Fall",
+      "description": "Reach back to spring gutter clients for fall booking",
+      "body": "Hi, it's [INSERT NAME] from GUTTER GHOSTS.\n\nWe completed your gutter service in the spring, and I wanted to let you know that fall spots are filling up quickly.\n\nIf you'd like to secure service within the next month, please text me back as soon as possible and I'll make sure we get you booked in.",
+      "tags": "👤 Backend / Groundsmen",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "upsell-0",
+      "category": "upsell",
+      "title": "Upsell Identified On Site",
+      "description": "Additional issue noticed during service — flag it now",
+      "body": "Hi, while on site today I noticed [INSERT ISSUE].\n\nI'll include photos and recommendations in my service review once the job is complete. If you'd like, I can pass it along to our team for follow-up.",
+      "tags": "👤 Groundsmen · 📎 Photos in service review",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "upsell-1",
+      "category": "upsell",
+      "title": "Bundle Offer — Add a Second Service NEW",
+      "description": "Client booked one service — pitch a second while crew is on-site",
+      "body": "Hi [INSERT CLIENT NAME],\n\nSince we're already at your property today for [INSERT SERVICE], we could also take care of [INSERT SECOND SERVICE] while we're here — no extra trip needed.\n\nBundling saves you time and we can usually offer a better rate than booking separately.\n\nWould you like me to pass that along to Sarah for a quick add-on quote?\n\nGUTTER GHOSTS\n[INSERT NAME]",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "upsell-2",
+      "category": "upsell",
+      "title": "Seasonal Follow-Up / Spring to Fall",
+      "description": "Reach back to spring gutter clients for fall booking",
+      "body": "Hi, it's [INSERT NAME] from GUTTER GHOSTS.\n\nWe completed your gutter service in the spring, and I wanted to let you know that fall spots are filling up quickly.\n\nIf you'd like to secure service within the next month, please text me back as soon as possible and I'll make sure we get you booked in.",
+      "tags": "👤 Backend / Groundsmen",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "faqs-0",
+      "category": "faqs",
+      "title": "What's Included in the Service?",
+      "description": "Client asks what is included",
+      "body": "Hi, I've attached our service booklet below for the requested service.\n\nIt outlines what's included, who we are, what sets us apart, and what you can expect from the region's highest-rated and most trusted service.",
+      "tags": "👤 Groundsmen / Backend · 📎 Relevant service booklet",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "faqs-1",
+      "category": "faqs",
+      "title": "How Long Does It Take?",
+      "description": "Client asks about service duration",
+      "body": "It depends, as every job is different.\n\nTiming can vary based on the current condition of the system, overall difficulty, and property access, but most services take anywhere from 1 hour to a few hours.\n\nWe'll notify you once the job is complete and send your service results afterward.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "faqs-2",
+      "category": "faqs",
+      "title": "Do I Need to Be Home?",
+      "description": "Client asks if presence is required",
+      "body": "No, you do not need to be home for service.\n\nOur system is designed to keep you fully informed from arrival to completion. You'll receive updates, service notes, photo results, and a final message once the job is finished.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "faqs-3",
+      "category": "faqs",
+      "title": "How Do I Pay?",
+      "description": "Client asks about payment methods",
+      "body": "We accept credit card and e-transfer.\n\nYour invoice will be sent after service completion, typically later in the evening, by email and text with payment instructions.",
+      "tags": "👤 Groundsmen / Backend · 📎 Invoice sent after service",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "faqs-4",
+      "category": "faqs",
+      "title": "Are You Insured? NEW",
+      "description": "Client asks about insurance or liability coverage",
+      "body": "Yes — GUTTER GHOSTS is fully insured.\n\nOur crew is trained at heights and we carry liability coverage on every job. If you require a certificate of insurance, please let us know and we will arrange that for you.\n\nGUTTER GHOSTS\n647-871-0294",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "faqs-5",
+      "category": "faqs",
+      "title": "Do You Offer a Guarantee? — Gutter Cleaning",
+      "description": "Client asks about cleaning warranty",
+      "body": "No ongoing guarantee or warranty applies to gutter cleaning.\n\nOnce completed, we provide checklist verification and before-and-after documentation showing the quoted work was completed.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "faqs-6",
+      "category": "faqs",
+      "title": "Do You Offer a Warranty? — Downspout Installations",
+      "description": "Client asks about workmanship warranty",
+      "body": "Yes. Downspout installations include a 60-day workmanship warranty covering installation-related issues only.\n\nThis does not cover clogs, blockages, or weather-related damage.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 6,
+      "attachments": []
+    },
+    {
+      "id": "faqs-7",
+      "category": "faqs",
+      "title": "Do You Offer a Warranty? — Gutter Guards",
+      "description": "Client asks about gutter guard warranty",
+      "body": "Gutter guard warranty details are outlined in the package provided.\n\nAny applicable product-related warranty must be handled through the manufacturer or supplier. Debris buildup after installation is not covered.",
+      "tags": "👤 Groundsmen / Backend · 📎 Gutter guard booklet / package",
+      "kind": "template",
+      "order": 7,
+      "attachments": []
+    },
+    {
+      "id": "faqs-8",
+      "category": "faqs",
+      "title": "Do You Cover Leak Concerns?",
+      "description": "Client asks about leak-related follow-up",
+      "body": "Yes. Leak-related service concerns are covered for 14 days after completion.\n\nPlease send photos or video of the issue so our team can review it.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 8,
+      "attachments": []
+    },
+    {
+      "id": "faqs-9",
+      "category": "faqs",
+      "title": "What Is a Complimentary Rapid Gutter Cleaning?",
+      "description": "Client asks how rapid clean works and when to use it",
+      "body": "A complimentary rapid gutter cleaning is a quick maintenance service of up to 30 minutes intended for light upkeep only.\n\nTo redeem it, you must notify GUTTER GHOSTS before October 1 and provide proof that it was included with your service.\n\nAfter October 1, it can no longer be redeemed.",
+      "tags": "👤 Groundsmen / Backend",
+      "kind": "template",
+      "order": 9,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-0",
+      "category": "forms",
+      "title": "🐳 Downspout",
+      "description": "…/requests/2274740/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274740/new",
+      "body": "",
+      "kind": "link",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-1",
+      "category": "forms",
+      "title": "🍁 Gutter Clean",
+      "description": "…/requests/2274285/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274285/new",
+      "body": "",
+      "kind": "link",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-2",
+      "category": "forms",
+      "title": "🛡️ Gutter Guard",
+      "description": "…/requests/2274457/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274457/new",
+      "body": "",
+      "kind": "link",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-3",
+      "category": "forms",
+      "title": "🍁🛡️ Gutter Clean & Guard",
+      "description": "…/requests/2499148/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499148/new",
+      "body": "",
+      "kind": "link",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-4",
+      "category": "forms",
+      "title": "🍁🔫 Gutter & Window Clean",
+      "description": "…/requests/2487672/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2487672/new",
+      "body": "",
+      "kind": "link",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-5",
+      "category": "forms",
+      "title": "🔫 Window Clean",
+      "description": "…/requests/2274650/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274650/new",
+      "body": "",
+      "kind": "link",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-6",
+      "category": "forms",
+      "title": "🎅🏻 Holiday Lights",
+      "description": "…/requests/2274838/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2274838/new",
+      "body": "",
+      "kind": "link",
+      "order": 6,
+      "attachments": []
+    },
+    {
+      "id": "forms-link-7",
+      "category": "forms",
+      "title": "📝 System Inspection",
+      "description": "…/requests/2499196/new",
+      "url": "https://clienthub.getjobber.com/hubs/81f68e10-90f0-4ce2-8dfe-d147b88211ff/public/requests/2499196/new",
+      "body": "",
+      "kind": "link",
+      "order": 7,
+      "attachments": []
+    },
+    {
+      "id": "booklets-link-0",
+      "category": "booklets",
+      "title": "📂 All Booklets — Google Drive Folder",
+      "description": "drive.google.com / GG Service Booklets",
+      "url": "https://drive.google.com/drive/folders/1Vnre1lT_66oL0VfGvGHjzVuC_YABVOqy?usp=sharing",
+      "body": "",
+      "kind": "link",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-0",
+      "category": "mockcall",
+      "title": "Answer the Call",
+      "description": "Call sequence · step 1",
+      "body": "👻 You say\n\"GUTTER GHOSTS, _________ speaking — how can I help you today?\"\nFill in your name. Warm, confident, direct. Let them speak first.",
+      "kind": "template",
+      "order": 0,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-1",
+      "category": "mockcall",
+      "title": "Listen & Acknowledge",
+      "description": "Call sequence · step 2",
+      "body": "Three common client openings — acknowledge, assure, redirect:\nIf they ask if you offer a service\n\"Absolutely — that's one of our core services. You've called the right place. Let me grab a few details and we'll get your quote started right away.\"\nIf they ask for a quote\n\"Perfect — we handle [service] all the time across Durham Region. I'll take down your info and have our quoting specialist Sarah get that sent over to you today.\"\nIf they describe a problem\n\"That's something we deal with regularly — no worries at all. We'll get one of our crew out to sort it. Let me grab your details and we'll take care of it from here.\"",
+      "kind": "template",
+      "order": 1,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-2",
+      "category": "mockcall",
+      "title": "Ask How They Heard About Us",
+      "description": "Call sequence · step 3",
+      "body": "👻 You say\n\"Quick one — how did you hear about us?\"\nRecord in Jobber → client record → Lead Source field immediately after the call.\nBuild-off responses by source\nGoogle →\n\"You must have read some of our reviews — 4.9 stars, 155+ five-stars. You're in great hands!\"\nReferral →\n\"Who told you about us? Love hearing that — we'll make sure you get the same experience.\"\nNeighbour →\n\"We're always in the area — glad you caught us! Looks like your neighbours have good taste.\"\nSocial →\n\"Great — we put a lot into showing the real process. Happy it connected!\"\nDoor hanger →\n\"Perfect timing — we were just in your neighbourhood. You're already on our radar!\"",
+      "kind": "template",
+      "order": 2,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-3",
+      "category": "mockcall",
+      "title": "Tell Them About the Service",
+      "description": "Call sequence · step 4",
+      "body": "👻 Your floor — don't rush this part\n\"So here's how we work — we're not your average crew. Every job comes with real-time updates, before-and-after documentation, and you'll know exactly who's showing up before they arrive. We do [service] all across Durham Region and we're the highest-rated service in the area for a reason.\"\nThen add\n\"I'll send our service booklet by text — it walks through everything start to finish. No surprises, no hidden fees.\"",
+      "kind": "template",
+      "order": 3,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-4",
+      "category": "mockcall",
+      "title": "Address the Service Request",
+      "description": "Call sequence · step 5",
+      "body": "👻 You say\n\"To make sure we quote you accurately — just a couple of quick questions about the property.\"\nGutter Clean\nHow many storeys? Heavy tree coverage? Last time cleaned?\nWindow Clean\nApprox. number of windows? Any hard-to-reach areas or skylights?\nGutter Guard\nSame as clean + any existing guards to remove?\nDownspout\nWhere's the issue? Detached, crushed, missing, or needs extension?\nHoliday Lights\nWhich areas? Roofline, windows, trees? Colour preferences?\nSystem Inspection\nAny known issues? Pre-winter or post-storm check?",
+      "kind": "template",
+      "order": 4,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-5",
+      "category": "mockcall",
+      "title": "Collect Contact & Property Details",
+      "description": "Call sequence · step 6",
+      "body": "👻 You say\n\"Perfect — let me grab your info so Sarah can get that quote built and sent over.\"\nFull Name\nFirst and last\nEmail Address\nConfirm spelling — quote is sent here\nPhone Number\nAsk: \"Is that a cell or home phone?\" — texts only deliver to cell numbers\nProperty Address\nFull civic address\nCity\nConfirm — needed for routing and service area verification",
+      "kind": "template",
+      "order": 5,
+      "attachments": []
+    },
+    {
+      "id": "mockcall-step-6",
+      "category": "mockcall",
+      "title": "Close the Call",
+      "description": "Call sequence · step 7",
+      "body": "👻 You say\n\"Perfect — I'll send the service booklet to you by text right now. Sarah, our quoting specialist, will have your quote sent over shortly. Leave it with me — I'll take care of it.\"\n1\n\"I'll send our service booklets to you by text right now.\"\n2\n\"Our quoting specialist Sarah will have your quote sent shortly.\"\n3\n\"Leave it with me — I'll take care of it.\"",
+      "kind": "template",
+      "order": 6,
+      "attachments": []
+    },
+    {
+      "id": "holiday-seed-76",
+      "category": "holiday-emails",
+      "title": "New holiday lighting inquiry",
+      "body": "Hi [NAME],\n\nThank you for your interest in holiday lighting with GUTTER GHOSTS! We handle the design, installation, seasonal maintenance, takedown, and storage.\n\nPlease send your property address and preferred phone number so we can discuss your display and prepare your quote. If you have a colour or style in mind, we would love to hear it.\n\nWe look forward to bringing the feeling home!\nGUTTER GHOSTS",
+      "subject": "Let’s light up your home this season",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 76
+    },
+    {
+      "id": "holiday-seed-77",
+      "category": "holiday-emails",
+      "title": "Consultation / service introduction",
+      "body": "Hi [NAME],\n\nWe would love to help plan your holiday display. Our full-service lighting includes custom design, professional installation, seasonal maintenance, takedown, and storage.\n\nWould [OPTION 1] or [OPTION 2] work for a quick call? We can arrange an in-person or online consultation if needed.\n\nGUTTER GHOSTS",
+      "subject": "Your holiday lighting consultation",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 77
+    },
+    {
+      "id": "holiday-seed-78",
+      "category": "holiday-emails",
+      "title": "Two-to-three-day nudge",
+      "body": "Hi [NAME],\n\nJust checking in to see what you thought of your holiday lighting design and quote. Any questions or changes you would like us to make?\n\nReply here and we will help with the next step.\n\nGUTTER GHOSTS",
+      "subject": "Thoughts on your holiday display?",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 78
+    },
+    {
+      "id": "holiday-seed-79",
+      "category": "holiday-emails",
+      "title": "Surprise design for an existing client",
+      "body": "Hi [NAME],\n\nA little surprise for you—we put together a holiday lighting design for your home!\n\nYou may not know that holiday lighting has become one of our most in-demand services. We handle everything, from installation and maintenance to takedown and storage.\n\nYour design is attached. What do you think?\n\nGUTTER GHOSTS",
+      "subject": "A little holiday magic for your home",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 79
+    },
+    {
+      "id": "holiday-seed-80",
+      "category": "holiday-emails",
+      "title": "Day-before installation",
+      "body": "Hi [NAME],\n\nWe are looking forward to installing your holiday lighting tomorrow, [DATE], during [ARRIVAL WINDOW].\n\nPlease keep the driveway and work areas clear, secure pets, and make sure we can access the outdoor power outlet and any required gates. Let us know about access instructions before we arrive.\n\nWe will contact you if weather affects the schedule.\n\nGUTTER GHOSTS",
+      "subject": "Your holiday lighting installation is tomorrow",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 80
+    },
+    {
+      "id": "holiday-seed-81",
+      "category": "holiday-emails",
+      "title": "Quote approved / deposit",
+      "body": "Hi [NAME],\n\nThank you for choosing GUTTER GHOSTS! A 50% deposit secures your installation date, with the remaining 50% due after installation.\n\nPlease use [PAYMENT LINK / APPROVED PAYMENT INSTRUCTIONS] to complete your deposit. Once received, we will confirm your service date.\n\nWe look forward to lighting up your home!\nGUTTER GHOSTS",
+      "subject": "Secure your holiday lighting installation",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 81
+    },
+    {
+      "id": "holiday-seed-82",
+      "category": "holiday-texts",
+      "title": "New inquiry",
+      "body": "Hi [NAME], thanks for contacting GUTTER GHOSTS about holiday lighting! Could you send your property address and preferred email? We will help plan your display and prepare your quote.",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 82
+    },
+    {
+      "id": "holiday-seed-83",
+      "category": "holiday-texts",
+      "title": "Design and quote follow-up",
+      "body": "Hi [NAME], just checking in on your holiday lighting design and quote. Any questions or changes you would like us to make? — GUTTER GHOSTS",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 83
+    },
+    {
+      "id": "holiday-seed-84",
+      "category": "holiday-calls",
+      "title": "Existing-client introduction",
+      "body": "Hi [NAME], it’s [YOUR NAME] from GUTTER GHOSTS. How have you been?\n\nI’m reaching out because we are planning holiday lighting installations. We handle the design, installation, maintenance, takedown, and storage. Have you thought about having your home lit up this season?\n\nIf interested: I can have a custom mock-up and quote prepared. What colours or areas of the home would you like included?",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 84
+    },
+    {
+      "id": "holiday-seed-85",
+      "category": "holiday-followup",
+      "title": "Lead-to-booking sequence",
+      "body": "1. New inquiry: confirm name, address, phone, email, and display preferences.\n2. Prepare mock-up and send approved service information.\n3. Josh/Sarah issues the official quote through Jobber.\n4. After 2–3 days: send a short nudge and answer questions.\n5. Quote approved: arrange the 50% deposit; confirm the service date once received.\n6. Day before installation: send preparation and arrival details.\n7. After installation: document results and arrange the remaining 50% payment.\n8. Handle seasonal maintenance, takedown, and storage.",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 85
+    },
+    {
+      "id": "holiday-seed-86",
+      "category": "holiday-questions",
+      "title": "Display discovery questions",
+      "body": "1. What is your property address?\n2. Which rooflines or areas would you like lit?\n3. Warm white, a colour, or an alternating pattern?\n4. Would you like trees, shrubs, pillars, or railings included?\n5. Do you have a budget range you would like us to design around?\n6. Is there an accessible outdoor power outlet?\n7. What installation timing works for you?\n8. What is your preferred phone number and email?\n9. What questions can we answer before preparing your design?",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 86
+    },
+    {
+      "id": "holiday-seed-87",
+      "category": "holiday-questions",
+      "title": "Service Q&A",
+      "body": "What is included?\nCustom design, installation, seasonal maintenance, takedown, and storage.\n\nWho owns the lighting?\nGUTTER GHOSTS retains the lighting and stores it for the next season.\n\nWhat if part of the display stops working?\nContact us with a photo and a description; we prioritize holiday lighting service concerns.\n\nHow is payment arranged?\n50% deposit to secure the date and 50% after installation.\n\nWhere is the official quote?\nThrough Jobber. Use the approved quote for scope and pricing.",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 87
+    },
+    {
+      "id": "holiday-seed-88",
+      "category": "holiday-prompts",
+      "title": "Realistic holiday lighting mock-up",
+      "body": "Edit the uploaded home photo into a realistic holiday lighting mock-up. Preserve the exact architecture, windows, landscaping, perspective, and framing.\n\nUse realistic, correctly scaled commercial C9 bulbs pointed downwards along the selected gutters and shingle edges. Colour/pattern: [COLOUR]. Additional areas: [AREAS]. Tree/shrub lighting: [TREE DETAILS].\n\nLater evening with darker skies, a winter setting, and light snowfall. Keep the holiday lights the focal point with a soft, realistic glow. Do not enlarge the bulbs or add unrequested decorations. Preserve all unselected parts of the home.",
+      "subject": "",
+      "description": "",
+      "kind": "template",
+      "attachments": [],
+      "order": 88
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-0",
+      "title": "MASTER COMMUNICATIONS",
+      "description": "Scripts & Templates",
+      "url": "mastercomms.html",
+      "order": 0
+    },
+    {
+      "id": "card-1",
+      "title": "FIELD TOOLS",
+      "description": "Calculators & Quoting",
+      "url": "gg_calculators.html",
+      "order": 1
+    },
+    {
+      "id": "card-2",
+      "title": "PORTAL",
+      "description": "Lead Intake",
+      "url": "https://ghost-intake-portal.lovable.app/",
+      "order": 2
+    },
+    {
+      "id": "card-3",
+      "title": "PICaso",
+      "description": "Collage Creator",
+      "url": "GG_PICaso.html",
+      "order": 3
+    },
+    {
+      "id": "card-4",
+      "title": "DOUGH DECK",
+      "description": "Payroll Tracker",
+      "url": "https://ghost-intake-portal.lovable.app/dough-deck",
+      "order": 5
+    },
+    {
+      "id": "holiday",
+      "title": "HOLIDAY LIGHTING",
+      "description": "Communications & Resources",
+      "url": "holiday.html",
+      "order": 4
+    }
+  ],
+  "fieldTabs": [
+    {
+      "id": "wq",
+      "title": "🔫 Window Quote",
+      "order": 0,
+      "builtin": true
+    },
+    {
+      "id": "wl",
+      "title": "💵 Window Labour",
+      "order": 1,
+      "builtin": true
+    },
+    {
+      "id": "gm",
+      "title": "🛡️ Install Costs",
+      "order": 2,
+      "builtin": true
+    },
+    {
+      "id": "lighting",
+      "title": "🎄 Holiday Lighting",
+      "order": 3,
+      "builtin": true
+    },
+    {
+      "id": "maps",
+      "title": "📍 Address Lookup",
+      "order": 4,
+      "builtin": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "mat-0",
+      "name": "Downpipe 2×3",
+      "unit": 16.09
+    },
+    {
+      "id": "mat-1",
+      "name": "Downpipe 3×3",
+      "unit": 16.09
+    },
+    {
+      "id": "mat-2",
+      "name": "Elbow 2×3",
+      "unit": 2.1
+    },
+    {
+      "id": "mat-3",
+      "name": "Elbow 3×3",
+      "unit": 2.1
+    },
+    {
+      "id": "mat-4",
+      "name": "Pipe Clamp",
+      "unit": 0.39
+    }
+  ],
+  "photoModes": [
+    {
+      "id": "before",
+      "title": "BEFORE",
+      "color": "#FF4D4D",
+      "order": 0
+    },
+    {
+      "id": "after",
+      "title": "AFTER",
+      "color": "#3DDB7A",
+      "order": 1
+    },
+    {
+      "id": "results",
+      "title": "SERVICE RESULTS",
+      "color": "#F17EA9",
+      "order": 2
+    }
+  ]
+}

@@ -225,6 +225,8 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
 }
 .toast.show{transform:translateX(-50%) translateY(0)}
 </style>
+<link rel="stylesheet" href="assets/hub.css">
+<script src="assets/calculations.js"></script>
 </head>
 <body>
 
@@ -443,7 +445,7 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
       <div class="guards-hint">From Roof Mart — price per piece</div>
       <div style="display:flex;align-items:center;gap:6px;margin-top:6px">
         <span style="font-family:'DM Mono',monospace;font-size:13px;color:var(--txt2)">$</span>
-        <input class="unit-input" id="gm-cost" type="number" min="0" step="0.01" value="0" oninput="calcGM()" style="width:100px;height:36px">
+        <input class="unit-input" id="gm-cost" type="number" min="0" step="0.01" value="" placeholder="Enter cost" oninput="calcGM()" style="width:100px;height:36px">
       </div>
     </div>
   </div>
@@ -456,7 +458,7 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
     </div>
     <div style="width:1px;background:var(--b1)"></div>
     <div class="guards-auto-item">
-      <div class="ga-label">Guard Material Cost</div>
+      <div class="ga-label">Guard Material Cost · incl. 13% HST</div>
       <div class="ga-val zero" id="gm-guard-cost">—</div>
     </div>
   </div>
@@ -465,21 +467,28 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
   <div class="section">
     <div class="section-title">Spout Material</div>
     <table class="mat-table">
-      <thead><tr><th>Item</th><th>Unit $</th><th style="text-align:center">Qty</th><th style="text-align:right">Total</th></tr></thead>
+      <thead><tr><th>Item</th><th>Unit $ (before HST)</th><th style="text-align:center">Qty</th><th style="text-align:right">Total</th></tr></thead>
       <tbody id="gm-mat-body"></tbody>
     </table>
   </div>
 
+  <div class="section"><div id="gm-tax-breakdown" class="gg-muted"></div><div id="gm-spout-total" class="gg-muted"></div></div>
   <!-- Total -->
   <div class="total-bar">
     <div>
       <div class="total-bar-label">Total Material Cost</div>
-      <div class="total-bar-sub">Guards + all materials</div>
+      <div class="total-bar-sub">Guards + all materials · including 13% HST</div>
     </div>
     <div class="total-bar-val zero" id="gm-total">$0.00</div>
   </div>
 
-  <button class="reset-btn" onclick="resetGM()">↺ &nbsp; Reset All Fields</button>
+  <div class="section">
+<label class="gg-field">Target return after materials ($ / linear ft)<input id="gm-rate" type="number" min="0" step="0.01" placeholder="Example: 10.00" oninput="calcGM()"></label>
+<p class="gg-muted">Quote subtotal = tax-inclusive materials + linear feet × your target return. Labour, overhead, and other expenses are not deducted. Client HST is added separately.</p>
+<div id="gm-quote" class="gg-result-grid"></div><p id="gm-validation" class="gg-muted" role="status"></p>
+<button type="button" class="gg-btn" id="gm-copy" onclick="copyGuardQuote()" disabled>Copy quote summary for Jobber</button>
+</div>
+<button class="reset-btn" onclick="resetGM()">↺ &nbsp; Reset All Fields</button>
   <div style="font-size:11px;color:var(--txt3);text-align:center;margin-top:4px">Prices sourced from Roof Mart — update unit costs above if pricing changes</div>
 </div>
 
@@ -631,7 +640,7 @@ function showSS(){
 // ═══════════════════════════════════════
 // PAGE 3: GUARDS MATERIAL
 // ═══════════════════════════════════════
-const MATERIALS=[
+let MATERIALS=[
   {name:'Downpipe 2×3', unit:16.09, qty:0},
   {name:'Downpipe 3×3', unit:16.09, qty:0},
   {name:'Elbow 2×3',    unit:2.10,  qty:0},
@@ -643,7 +652,7 @@ function buildMatTable(){
   const tbody=document.getElementById('gm-mat-body');
   tbody.innerHTML=MATERIALS.map((m,i)=>`
     <tr>
-      <td><div class="mat-nm">${m.name}</div></td>
+      <td><div class="mat-nm">${String(m.name).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]))}</div></td>
       <td>
         <input class="unit-input" id="gm-unit-${i}" type="number" min="0" step="0.01"
           value="${m.unit.toFixed(2)}" oninput="calcGM()" style="width:64px;height:28px;font-size:11px">
@@ -663,38 +672,40 @@ function stepMat(i,delta){
   el.value=Math.max(0,(parseInt(el.value)||0)+delta);
   calcGM();
 }
+let guardSummary='';
 function calcGM(){
-  const ft=parseFloat(document.getElementById('gm-ft').value)||0;
-  const len=parseFloat(document.getElementById('gm-len').value)||7.4;
-  const cost=parseFloat(document.getElementById('gm-cost').value)||0;
-  const sections=len>0?Math.ceil(ft/len):0;
-  const guardCost=sections*cost;
-
-  const sv=document.getElementById('gm-sections');
-  sv.textContent=sections>0?sections:'—';
-  sv.classList.toggle('zero',sections===0);
-  const gcv=document.getElementById('gm-guard-cost');
-  gcv.textContent=guardCost>0?fmt(guardCost):'—';
-  gcv.classList.toggle('zero',guardCost===0);
-
-  let matTotal=0;
-  MATERIALS.forEach((_,i)=>{
-    const qty=parseInt(document.getElementById('gm-qty-'+i).value)||0;
-    const unit=parseFloat(document.getElementById('gm-unit-'+i).value)||0;
-    const t=qty*unit;
-    matTotal+=t;
-    document.getElementById('gm-mt-'+i).textContent=fmt(t);
-  });
-
-  const grand=guardCost+matTotal;
-  const tv=document.getElementById('gm-total');
-  tv.textContent=fmt(grand);
-  tv.classList.toggle('zero',grand===0);
+  const read=id=>document.getElementById(id).value;
+  const ft=Number(read('gm-ft')),len=Number(read('gm-len')),raw=read('gm-cost'),cost=Number(raw);
+  const valid=Number.isFinite(ft)&&ft>=0&&Number.isFinite(len)&&len>0&&Number.isFinite(cost)&&cost>=0;
+  const sections=valid?Math.ceil(ft/len):0;
+  document.getElementById('gm-sections').textContent=sections||'—';
+  document.getElementById('gm-sections').classList.toggle('zero',!sections);
+  const guard=GGMath.taxTotal(sections*cost);
+  document.getElementById('gm-guard-cost').textContent=valid&&raw!==''?fmt(guard.total):'—';
+  document.getElementById('gm-guard-cost').classList.toggle('zero',!guard.total);
+  let spouts=0,materialValid=true;
+  MATERIALS.forEach((_,i)=>{const q=Number(read('gm-qty-'+i)),u=Number(read('gm-unit-'+i));if(!Number.isFinite(q)||!Number.isFinite(u)||q<0||u<0||!Number.isInteger(q)||(q>0&&read('gm-unit-'+i)===''))materialValid=false;const amount=GGMath.round(Math.max(0,q||0)*Math.max(0,u||0));spouts+=amount;document.getElementById('gm-mt-'+i).textContent=fmt(amount);});
+  const spoutTax=GGMath.taxTotal(spouts),all=GGMath.taxTotal(guard.subtotal+spouts);
+  const hasGuard=ft>0,complete=valid&&materialValid&&(!hasGuard||raw!=='');
+  document.getElementById('gm-total').textContent=complete?fmt(all.total):'—';
+  document.getElementById('gm-total').classList.toggle('zero',!all.total);
+  document.getElementById('gm-tax-breakdown').textContent=complete?'Materials before HST: '+fmt(all.subtotal)+' · HST (13%): '+fmt(all.tax):'Enter valid material costs to calculate the total.';
+  document.getElementById('gm-spout-total').textContent=materialValid?'Downspout materials: '+fmt(spoutTax.subtotal)+' + '+fmt(spoutTax.tax)+' HST = '+fmt(spoutTax.total):'Check downspout quantities and prices.';
+  const out=document.getElementById('gm-quote'),message=document.getElementById('gm-validation');out.replaceChildren();guardSummary='';document.getElementById('gm-copy').disabled=true;
+  if(!complete||raw===''||read('gm-rate')===''||ft<=0){message.textContent='Enter footage, section cost, and your target return to calculate the guard quote.';return;}
+  try{const r=GGMath.guard({feet:read('gm-ft'),length:read('gm-len'),cost:raw,rate:read('gm-rate'),extras:spouts});
+    out.innerHTML=[['Client quote before HST',r.quote.subtotal],['Client HST (13%)',r.quote.tax],['Client total including HST',r.quote.total],['Return after materials',r.target]].map(([label,value])=>'<div class="gg-result"><small>'+label+'</small><strong>'+fmt(value)+'</strong></div>').join('');
+    message.textContent=fmt(r.returnPerFoot)+' per linear ft after tax-inclusive materials. Any downspout materials entered above are included in this quote.';
+    guardSummary='GUTTER GHOSTS — Guard Quote Estimate\nFootage: '+ft+' linear ft\nSections: '+sections+'\nMaterials incl. HST: '+fmt(r.allMaterials.total)+'\nTarget return after materials: '+fmt(r.returnPerFoot)+'/ft\nQuote subtotal: '+fmt(r.quote.subtotal)+'\nHST (13%): '+fmt(r.quote.tax)+'\nClient total: '+fmt(r.quote.total)+'\nOfficial quote issued through Jobber.';
+    document.getElementById('gm-copy').disabled=false;
+  }catch(e){message.textContent=e.message;}
 }
+function copyGuardQuote(){if(guardSummary)navigator.clipboard.writeText(guardSummary).then(()=>showToast('Quote summary copied')).catch(()=>showToast('Copy failed. Select and copy the amounts manually.'));}
 function resetGM(){
   document.getElementById('gm-ft').value=0;
   document.getElementById('gm-len').value=7.4;
-  document.getElementById('gm-cost').value=0;
+  document.getElementById('gm-cost').value='';
+  document.getElementById('gm-rate').value='';
   MATERIALS.forEach((_,i)=>{
     document.getElementById('gm-qty-'+i).value=0;
   });
@@ -709,5 +720,6 @@ calcWQ();
 calcWL();
 calcGM();
 </script>
+<script src="assets/config.js"></script><script src="assets/store.js"></script><script src="assets/hub.js"></script><script src="assets/field-tools.js"></script>
 </body>
 </html>

@@ -371,6 +371,7 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 </style>
+<link rel="stylesheet" href="assets/hub.css">
 </head>
 <body>
 <div class="page">
@@ -459,9 +460,10 @@
 
   // ── Mode ──
   function setMode(m) {
-    mode = m;
-    document.getElementById('btn-before').className = 'mode-btn' + (m === 'before' ? ' active-before' : '');
-    document.getElementById('btn-after').className  = 'mode-btn' + (m === 'after'  ? ' active-after'  : '');
+    mode=m;
+    document.querySelectorAll('.mode-btn').forEach(b=>{b.style.borderColor=b.dataset.mode===m?(window.ggPhotoModes?.find(x=>x.id===m)?.color||'#F17EA9'):'transparent';b.style.color=b.dataset.mode===m?'#f0f0f0':'#aaa';});
+    const result=document.getElementById('result-section');
+    if(result)result.style.display='none';
   }
 
   // ── Layout ──
@@ -571,8 +573,8 @@
       canvas.height = HEADER_H + rows * CELL_H + (rows + 1) * PAD;
 
       // Theme
-      const accentColor = mode === 'before' ? '#FF4D4D' : '#3DDB7A';
-      const labelText   = mode === 'before' ? 'BEFORE'  : 'AFTER';
+      const accentColor = window.ggPhotoModes?.find(x=>x.id===mode)?.color || '#F17EA9';
+      const labelText = window.ggPhotoModes?.find(x=>x.id===mode)?.title || 'SERVICE RESULTS';
       const bgColor     = '#111111';
 
       // Background
@@ -607,6 +609,7 @@
       ctx.font       = 'bold 28px "Syne", sans-serif';
       ctx.textAlign  = 'center';
       ctx.textBaseline = 'middle';
+      while(ctx.measureText(labelText).width > hw - 20){const n=parseFloat(ctx.font.match(/([\d.]+)px/)[1]);ctx.font='bold '+(n-1)+'px \"Syne\", sans-serif';}
       ctx.fillText(labelText, canvas.width / 2, hy + hh / 2);
 
       // Count badge
@@ -711,5 +714,6 @@
     handleFiles(e.dataTransfer.files);
   });
 </script>
+<script src="assets/config.js"></script><script src="assets/store.js"></script><script src="assets/hub.js"></script><script src="assets/picasso.js"></script>
 </body>
 </html>
